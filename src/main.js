@@ -5,8 +5,20 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+const loadApp = () => {
+  try{
+    if(!window.gapi){
+      throw new Error('no gappi')
+    }
+
+    new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount('#app')
+  }
+  catch{
+    setTimeout(loadApp,100)
+  }
+}
+loadApp()
