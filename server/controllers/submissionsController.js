@@ -2,8 +2,14 @@ const axios = require('axios').default
 const Submission = require('../models/submissionsModel')
 
 class submissionsController{
-    static async getVideo(req,res){
+    static async submitVideo(req,res){
         try{
+
+            if(req.user.hasSubmited){
+                res.status(400).send('אתה כבר שלחת הצעה לסיבוב הזה')
+                return
+            }
+
             const {data} = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${req.body.videoId}&key=${process.env.YOUTUBE_API}`)
             const {title,categoryId} = data.items[0].snippet
 
@@ -26,6 +32,9 @@ class submissionsController{
             })
 
             await sub.save()
+
+            req.user.hasSubmited = true
+            await req.user.save()
 
             res.send()
         }

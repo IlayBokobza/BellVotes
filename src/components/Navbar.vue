@@ -1,9 +1,10 @@
 <template>
     <div v-if="pageTitle" class="navbar">
         <router-link :to="pageTitle.link">{{pageTitle.text || "no title given"}}</router-link>
-        <div class="logout">
+        <div class="profile">
             <p>{{username}}</p>
             <img :src="image" alt="">
+            <div @click="logout" class="logout">התנתק</div>
         </div>
     </div>
 </template>
@@ -11,6 +12,12 @@
 <script>
 export default {
     name:"Navbar",
+    methods:{
+        logout(){
+            this.$store.dispatch('signout')
+            location.reload()
+        }
+    },
     computed:{
         username(){
             return this.$store.state.name
@@ -37,9 +44,15 @@ export default {
     font-size: 2rem;
     margin-bottom: 2rem;
 
-    .logout{
+    .profile{
         display: flex;
+        position: relative;
         align-items: center;
+        user-select: none;
+
+        &:hover .logout{
+            opacity: 1;
+        }
 
         img{
             width: 50px;
@@ -50,6 +63,20 @@ export default {
     
     a{
         border-bottom: 3px solid;
+    }
+
+    .logout{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color:var(--color2);
+        display: grid;
+        place-items:center;
+        font-size: 2.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0;
+        transition: all .3s;
     }
 }
 </style>

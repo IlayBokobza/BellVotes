@@ -23,7 +23,7 @@ export default {
     padding: .5rem 2rem;
 
     a{
-        text-decoration: underline;
+        text-decoration: underline !important;
     }
 }
 </style>

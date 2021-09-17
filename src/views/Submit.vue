@@ -54,13 +54,14 @@ export default {
       const queryData = qs.parse(query)
       const videoId = queryData.v
 
-      axios.post('/api/submit/getvideo',{videoId}).catch((e) => {
+      axios.post('/api/submit/submitVideo',{videoId}).catch((e) => {
         Swal.fire({
           title:e.response.data,
           icon:'error',
           confirmButtonText:"אוקי",
         })
-      }).then(() => {
+      }).then((r) => {
+        console.log(r.status)
         Swal.fire({
           title:'תודה על ההצעה',
           text:'!אנחנו נסתכל על ההעצה שלך ואם נחליט שהיא מתאימה אנחנו נוסיף אותה',
