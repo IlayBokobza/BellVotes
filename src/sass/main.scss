@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Roboto:wght@100;300;400;500;700&display=swap');
+//import fonts
+@import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Roboto:wght@100;300;400;500;700&family=Secular+One&display=swap');
 
 *{
     padding: 0;
@@ -6,6 +7,14 @@
     box-sizing: border-box;
     color:#fff;
     font-family: 'Karantina', cursive;
+}
+
+#g-login span{
+    font-family: 'Roboto' sans-serif;
+}
+
+.swal2-popup *{
+    font-family: 'Secular One', sans-serif;
 }
 
 :root{
