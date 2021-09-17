@@ -1,6 +1,8 @@
 <template>
   <div class="login">
-      <div id="google-signin-button"></div>
+      <h1 class="title">!הצביעו לצילצול</h1>
+      <h2 class="subtitle mb">.היכנסו עם המייל של פלך כדי להצביע</h2>
+      <div id="g-login"></div>
   </div>
 </template>
 
@@ -12,17 +14,18 @@ export default {
     },
     mounted(){
         let gapi = window.gapi
-        gapi.signin2.render('google-signin-button', {
+        gapi.signin2.render('g-login', {
             onsuccess: this.onSignIn,
-                'width': 240,
-                'height': 50,
-                'longtitle': true,
-                'theme': 'dark',
+            width: 240,
+            height: 50,
+            longtitle: true,
+            theme: 'dark',
         })
     },    
     methods:{
         onSignIn (user) {
-            const email = user.getBasicProfile().getEmail()
+            const profile = user.getBasicProfile()
+            const email = profile.getEmail()
             const isPelechEmail = /@pelech\.ort\.org\.il$/i.test(email)
 
             if(!isPelechEmail){
@@ -34,6 +37,15 @@ export default {
                 })
 
                 this.$store.dispatch('signout')
+            }
+            else{
+                this.$store.commit('saveUserData',{
+                    email,
+                    image:profile.getImageUrl(),
+                    name:profile.getName(),
+                    token:user.getAuthResponse().id_token
+                })
+                this.$router.push('/vote')
             }
         }
     }

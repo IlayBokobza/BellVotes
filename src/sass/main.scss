@@ -4,18 +4,50 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Roboto';
     color:#fff;
+    font-family: 'Karantina', cursive;
 }
 
 :root{
-    --color1:#4b0069;
+    --color1:#9D07AD;
+    --color2:#FAC62A;
+    --color3:#E623FB;
+    --color4:#0AFABD;
+    --color5:#10AD85;
 }
 
 body{
     background-color: var(--color1);
 }
 
-h1{
+h1,h2,h3{
     font-family: 'Karantina', cursive;
+    text-align: center;
+}
+
+#g-login{
+    display: flex;
+    justify-content: center;
+}
+
+.title{
+    font-size: 10rem;
+    margin-bottom: 1rem;
+}
+
+.subtitle{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+a,a:visited,a:link{
+    text-decoration: none;
+}
+
+.mb{
+    margin-bottom: 3rem;
+}
+
+::selection{
+    background-color: var(--color2);
 }

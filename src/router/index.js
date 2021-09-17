@@ -1,5 +1,7 @@
 import Vue from 'vue'
+import store from '../store/index'
 import VueRouter from 'vue-router'
+
 import Login from '../views/Login.vue'
 import Vote from '../views/Vote.vue'
 import SubmitPage from '../views/Submit.vue'
@@ -7,6 +9,16 @@ import Admin from '../views/Admin.vue'
 
 
 Vue.use(VueRouter)
+
+//route guard
+const onlyLogin = (to,from,next) => {
+  if(!store.state.email){
+    console.log('user not logged in redirecting')
+    next('/')
+    return
+  }
+  next()
+}
 
 const routes = [
   {
@@ -17,12 +29,14 @@ const routes = [
   {
     path: '/vote',
     name: 'vote',
-    component: Vote
+    component: Vote,
+    beforeEnter:onlyLogin,
   },
   {
     path: '/submit',
     name: 'submit-page',
-    component: SubmitPage
+    component: SubmitPage,
+    beforeEnter:onlyLogin,
   },
   {
     path: '/admin',
