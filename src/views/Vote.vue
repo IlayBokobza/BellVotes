@@ -9,7 +9,7 @@ export default {
   name:'vote',
   created(){
     this.$store.commit('setTitle',{
-      text:'הציבעו לפעם הבא',
+      text:'הציעו שיר לפעם הבא',
       link:'/submit'
     })
   }

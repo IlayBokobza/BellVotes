@@ -1,7 +1,14 @@
 <template>
   <div class="submit">
-    <Input text="קישור לשיר ביוטיוב"></Input>
-    <Button @click="getVideo" text="הבא" />
+    <h2>חוקים</h2>
+    <ul>
+      <li>הקישור חייב להיות לשיר</li>
+      <li>השיר חייב להיות בעברית</li>
+      <li>השיר חייב להיות ראוי</li>
+      <li>אם אתה עובר על אחד או יותר מהחוקים האלה אתה תוכל תחסם מלשלוח עוד הצעות</li>
+    </ul>
+    <Input @newValue="updateValue" text="קישור לשיר ביוטיוב"></Input>
+    <Button @click="getVideo" text="שלח" />
   </div>
 </template>
 
@@ -9,8 +16,15 @@
 import Input from '../components/Input.vue'
 import Button from '../components/Button.vue'
 import axios from 'axios'
+import qs from 'qs'
+import Swal from 'sweetalert2'
 export default {
   name:'submit',
+  data(){
+    return{
+      youtubeLink:''
+    }
+  },
   created(){
     this.$store.commit('setTitle',{
       text:'בחזרה להצבעה',
@@ -23,7 +37,40 @@ export default {
   },
   methods:{
     async getVideo(){
-      await axios.post('/api/submit/getvideo')
+      const reg = /https:\/\/(www.)?youtube.com\/watch\?/
+
+      //tests if is a youtube link
+      if(!reg.test(this.youtubeLink)){
+        Swal.fire({
+          title:'קישור לא תקין',
+          icon:'error',
+          confirmButtonText:"אוקי",
+        })
+        return
+      }
+
+      //removes the domain from the link
+      const query = this.youtubeLink.replace(reg,'')
+      const queryData = qs.parse(query)
+      const videoId = queryData.v
+
+      axios.post('/api/submit/getvideo',{videoId}).catch((e) => {
+        Swal.fire({
+          title:e.response.data,
+          icon:'error',
+          confirmButtonText:"אוקי",
+        })
+      }).then(() => {
+        Swal.fire({
+          title:'תודה על ההצעה',
+          text:'!אנחנו נסתכל על ההעצה שלך ואם נחליט שהיא מתאימה אנחנו נוסיף אותה',
+          confirmButtonText:'!אוקי תודה',
+          icon:'success'
+        })
+      })
+    },
+    updateValue(e){
+      this.youtubeLink = e
     }
   }
 }
@@ -35,5 +82,14 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  h2{
+    font-size: 4rem;
+  }
+
+  ul{
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 </style>

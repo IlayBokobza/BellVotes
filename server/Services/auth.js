@@ -1,5 +1,6 @@
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
+const User = require('../models/userModel')
 
 module.exports = async (req,res,next) => {
     try{
@@ -16,7 +17,14 @@ module.exports = async (req,res,next) => {
             return
         }
 
-        req.user = payload
+        let user = await User.findOne({email:payload.email})
+
+        if(!user){
+            user = new User(payload)
+            await user.save()
+        }
+
+        req.user = user
         next()
     }
     catch{

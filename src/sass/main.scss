@@ -51,3 +51,7 @@ a,a:visited,a:link{
 ::selection{
     background-color: var(--color2);
 }
+
+ul{
+    direction: rtl;
+}

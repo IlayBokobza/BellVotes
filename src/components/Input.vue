@@ -1,6 +1,6 @@
 <template>
     <div class="input">
-        <input :id="id" :type="(type) ? type : 'text'" placeholder=" ">
+        <input @keyup="updateValue" v-model="value" :id="id" :type="(type) ? type : 'text'" placeholder=" ">
         <label :for="id">{{text || 'temp text'}}</label>
     </div>
 </template>
@@ -12,9 +12,15 @@ export default Vue.extend({
     props:['text','type'],
     data(){
         return{
-            id:Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+            id:Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+            value:null
         }
     },
+    methods:{
+        updateValue(){
+            this.$emit('newValue',this.value)
+        }
+    }
 })
 </script>
 
@@ -22,6 +28,7 @@ export default Vue.extend({
 .input{
     padding: 10px;
     margin-bottom: 1rem;
+    position: relative;
 
     *{
         transition: all .2s;
@@ -43,9 +50,11 @@ export default Vue.extend({
 
     label{
         font-size: 2rem;
-        position: relative;
+        position: absolute;
         display: inline-block;
-        left: -9rem;
+        width: 200px;
+        text-align: right;
+        right: 2%;
     }
 
     input:not(:placeholder-shown) + label{
