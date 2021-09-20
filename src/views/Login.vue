@@ -39,12 +39,6 @@ export default {
                 this.$store.dispatch('signout')
             }
             else{
-                this.$store.commit('saveUserData',{
-                    email,
-                    image:profile.getImageUrl(),
-                    name:profile.getName(),
-                    token:user.getAuthResponse().id_token
-                })
                 this.$router.push('/vote')
             }
         }

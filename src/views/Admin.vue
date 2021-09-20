@@ -6,6 +6,12 @@
 
 <script>
 export default {
-    name:'admin'
+    name:'admin',
+    created(){
+      this.$store.commit('setTitle',{
+        text:'בחזרה לבית',
+        link:'/'
+      })
+    }
 }
 </script>

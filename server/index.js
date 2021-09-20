@@ -11,6 +11,7 @@ app.use(cookieParser());
 
 //setup routes
 app.use('/api/submit',require('./routes/submissions'))
+app.use('/api/auth',require('./routes/auth'))
 
 //connects to mongo
 mongoose.connect(process.env.MONGO,{
