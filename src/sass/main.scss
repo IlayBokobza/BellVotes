@@ -31,6 +31,7 @@ body{
 
 html{
     position: relative;
+    min-height: 100vh;
 }
 
 h1,h2,h3{
@@ -67,4 +68,27 @@ a,a:visited,a:link{
 
 ul{
     direction: rtl;
+}
+
+
+//scrollbar
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color2);
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color3);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color5);
 }
