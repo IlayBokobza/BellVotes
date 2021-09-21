@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Navbar/>
-    <router-view/>
+    <router-view @toogleLoad="loading = !loading" />
     <Footer/>
-    <Loading v-if="!$store.state.email"/>
+    <Loading v-if="!$store.state.email || loading"/>
   </div>
 </template>
 
@@ -16,6 +16,11 @@ export default {
     Navbar,
     Footer,
     Loading
+  },
+  data(){
+    return{
+      loading:false,
+    }
   }
 }
 </script>

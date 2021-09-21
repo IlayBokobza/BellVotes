@@ -30,12 +30,15 @@ export default Vue.extend({
     margin-bottom: 1rem;
     position: relative;
 
+    --bg:var(--color1);
+    --focus:var(--color2);
+
     *{
         transition: all .2s;
     }
 
     input{
-        background-color: var(--color1);
+        background-color: var(--bg);
         border: 0;
         border-bottom: .4rem solid #fff;
         outline: none;
@@ -44,7 +47,7 @@ export default Vue.extend({
         font-size: 1.6rem;
 
         &:focus{
-            border-bottom: .4rem solid var(--color2);
+            border-bottom: .4rem solid var(--focus);
         }
     }
 

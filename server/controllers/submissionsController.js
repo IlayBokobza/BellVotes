@@ -27,7 +27,7 @@ class submissionsController{
 
             const sub = new Submission({
                 title,
-                link:`https://www.youtube.com/watch?v=${req.body.videoId}`,
+                link:req.body.videoId,
                 owner:req.user._id
             })
 
@@ -41,6 +41,16 @@ class submissionsController{
         catch(e){
             console.log(e)
             res.status(500).send(e?.response?.data)
+        }
+    }
+
+    static async get(req,res){
+        try {
+            const data = await Submission.find()
+            res.send(data)
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
         }
     }
 }

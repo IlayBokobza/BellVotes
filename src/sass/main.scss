@@ -29,6 +29,10 @@ body{
     background-color: var(--color1);
 }
 
+html{
+    position: relative;
+}
+
 h1,h2,h3{
     font-family: 'Karantina', cursive;
     text-align: center;

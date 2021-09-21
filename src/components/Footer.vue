@@ -13,7 +13,7 @@ export default {
 
 <style lang="scss">
 .footer{
-    width: 100vw;
+    width: 100%;
     background-color: var(--color5);
     position: absolute;
     bottom: 0;
