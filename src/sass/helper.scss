@@ -1,0 +1,42 @@
+h1,h2,h3{
+    text-align: center;
+}
+
+#g-login{
+    display: flex;
+    justify-content: center;
+}
+
+.title{
+    font-size: 10rem;
+    margin-bottom: 1rem;
+}
+
+.subtitle{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+a,a:visited,a:link{
+    text-decoration: none;
+}
+
+.mb{
+    margin-bottom: 3rem;
+}
+
+::selection{
+    background-color: var(--color2);
+}
+
+ul{
+    direction: rtl;
+}
+
+#g-login span{
+    font-family: 'Roboto' sans-serif;
+}
+
+.swal2-popup *{
+    font-family: 'Secular One', sans-serif;
+}

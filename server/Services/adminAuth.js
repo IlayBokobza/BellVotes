@@ -3,7 +3,6 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 const User = require('../models/userModel')
 const fs = require('fs')
 const path = require('path')
-const admins = [...JSON.parse(fs.readFileSync(path.resolve(`${__dirname}/../Services/admins.json`)).toString())]
 
 module.exports = async (req,res,next) => {
     try{
@@ -27,6 +26,7 @@ module.exports = async (req,res,next) => {
             await user.save()
         }
 
+        const admins = [...JSON.parse(fs.readFileSync(path.resolve(`${__dirname}/../Services/admins.json`)).toString())]
         const isAdmin = admins.findIndex((i) => i == payload.email) != -1
 
         if(!isAdmin){

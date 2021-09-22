@@ -13,5 +13,6 @@ const schema = mongoose.Schema({
 })
 
 const Submission = mongoose.model('Submission',schema)
+const AcceptedSubmission = mongoose.model('AcceptedSubmission',schema)
 
-module.exports = Submission
+module.exports = {Submission,AcceptedSubmission}

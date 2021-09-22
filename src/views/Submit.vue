@@ -8,13 +8,12 @@
       <li>אם אתה עובר על אחד או יותר מהחוקים האלה אתה תוכל תחסם מלשלוח עוד הצעות</li>
     </ul>
     <Input @newValue="updateValue" text="קישור לשיר ביוטיוב"></Input>
-    <Button @click="getVideo" text="שלח" />
+    <button class="btn" @click="getVideo">שלח</button>
   </div>
 </template>
 
 <script>
 import Input from '../components/Input.vue'
-import Button from '../components/Button.vue'
 import axios from 'axios'
 import qs from 'qs'
 import Swal from 'sweetalert2'
@@ -33,7 +32,6 @@ export default {
   },
   components:{
     Input,
-    Button,
   },
   methods:{
     async getVideo(){
@@ -54,7 +52,7 @@ export default {
       const queryData = qs.parse(query)
       const videoId = queryData.v
 
-      axios.post('/api/submit/submitVideo',{videoId}).catch((e) => {
+      axios.post('/api/submit/',{videoId}).catch((e) => {
         Swal.fire({
           title:e.response.data,
           icon:'error',

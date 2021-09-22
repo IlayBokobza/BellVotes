@@ -1,20 +1,17 @@
 //import fonts
 @import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Roboto:wght@100;300;400;500;700&family=Secular+One&display=swap');
 
+//file imports
+@import "./button.scss";
+@import "./helper.scss";
+@import "./scrollbar.scss";
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     color:#fff;
     font-family: 'Karantina', cursive;
-}
-
-#g-login span{
-    font-family: 'Roboto' sans-serif;
-}
-
-.swal2-popup *{
-    font-family: 'Secular One', sans-serif;
 }
 
 :root{
@@ -32,63 +29,4 @@ body{
 html{
     position: relative;
     min-height: 100vh;
-}
-
-h1,h2,h3{
-    font-family: 'Karantina', cursive;
-    text-align: center;
-}
-
-#g-login{
-    display: flex;
-    justify-content: center;
-}
-
-.title{
-    font-size: 10rem;
-    margin-bottom: 1rem;
-}
-
-.subtitle{
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-a,a:visited,a:link{
-    text-decoration: none;
-}
-
-.mb{
-    margin-bottom: 3rem;
-}
-
-::selection{
-    background-color: var(--color2);
-}
-
-ul{
-    direction: rtl;
-}
-
-
-//scrollbar
-
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-/* Track */
-::-webkit-scrollbar-track {
-  background: var(--color2);
-}
-  
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--color3);
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color5);
 }

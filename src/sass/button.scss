@@ -1,21 +1,4 @@
-<template>
-  <button @click="clicked">{{text}}</button>
-</template>
-
-<script>
-export default {
-    name:"Button",
-    props:['text'],
-    methods:{
-        clicked(){
-            this.$emit("click")
-        }
-    }
-}
-</script>
-
-<style lang="scss" scoped>
-button{
+.btn{
     display: block;
     color: #000;
     background-color: var(--color2);
@@ -26,6 +9,7 @@ button{
     box-shadow: 3px 6px 4px 2px rgba(rgb(32, 32, 32),.5);
     transition: all .2s;
     cursor: pointer;
+    outline: none;
 
     &:hover{
         transform: translateY(-5px);
@@ -37,4 +21,3 @@ button{
         box-shadow: 3px 6px 4px 1px rgba(rgb(32, 32, 32),.5);
     }
 }
-</style>

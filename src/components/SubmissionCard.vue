@@ -5,9 +5,9 @@
     <div>
       <Input text=":(01:00)הצילצול מתחיל מ"></Input>
       <div class="submission-card__btn-container">
-        <Button @click="accept" class="submission-card__btn--accept" text="אשר" />
-        <Button @click="deny" class="submission-card__btn--deny" text="דחה" />
-        <Button @click="ban" class="submission-card__btn--ban" text="חסום תלמיד" />
+        <button @click="accept" class="btn submission-card__btn--accept">אשר</button>
+        <button @click="deny" class="btn submission-card__btn--deny">דחה</button>
+        <button @click="ban" class="btn submission-card__btn--ban">חסום תלמיד</button>
       </div>
     </div>
   </div>
@@ -15,12 +15,11 @@
 
 <script>
 import Input from './Input.vue'
-import Button from './Button.vue'
 export default {
     name:'submission-card',
     props:['videoId'],
     components:{
-        Input,Button,
+        Input,
     },
     data(){
         return{

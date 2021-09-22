@@ -1,10 +1,19 @@
 const axios = require('axios').default
-const Submission = require('../models/submissionsModel')
+const {Submission,AcceptedSubmission} = require('../models/submissionsModel')
+const User = require('../models/userModel')
+const dayjs = require('dayjs')
 
 class submissionsController{
-    static async submitVideo(req,res){
+    static async post(req,res){
         try{
+            
+            //if banned
+            if(req.user.bannedUntil > Date.now()){
+                res.status(401).send(`${dayjs(req.user.bannedUntil).format('D/M/YYYY')} אתה חסום עד`)
+                return
+            }
 
+            //if already submitted
             if(req.user.hasSubmited){
                 res.status(400).send('אתה כבר שלחת הצעה לסיבוב הזה')
                 return
@@ -46,8 +55,56 @@ class submissionsController{
 
     static async get(req,res){
         try {
-            const data = await Submission.find()
+            const data = await Submission.find({})
             res.send(data)
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
+        }
+    }
+
+    static async delete(req,res){
+        try {
+            const id = req.params.id
+            await Submission.findByIdAndDelete(id)
+
+            res.send()
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
+        }
+    }
+
+    static async put(req,res){
+        try {
+            const id = req.params.id
+            let sub = await Submission.findByIdAndDelete(id)
+
+            sub = {
+                title:sub.title,
+                link:sub.link,
+                owner:sub.owner
+            }
+
+            const accpetedSub = new AcceptedSubmission(sub)
+            await accpetedSub.save()
+
+            res.send()
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
+        }
+    }
+
+    static async ban(req,res){
+        try {
+            const id = req.params.id
+            const sub = await Submission.findByIdAndDelete(id)
+            const owner = await User.findById(sub.owner)
+            owner.bannedUntil = dayjs().add(30,'day')
+
+            await owner.save()
+            res.send()
         } catch (e) {
             console.log(e)
             res.status(500).send(e)
