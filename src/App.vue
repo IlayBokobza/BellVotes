@@ -3,7 +3,7 @@
     <Navbar/>
     <router-view @toogleLoad="loading = !loading" />
     <Footer/>
-    <Loading v-if="!$store.state.email || loading"/>
+    <Loading v-if="(!$store.state.email && token) || loading"/>
   </div>
 </template>
 
@@ -11,6 +11,7 @@
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 import Loading from './components/Loading.vue'
+import Cookies from 'js-cookie'
 export default {
   components:{
     Navbar,
@@ -20,7 +21,11 @@ export default {
   data(){
     return{
       loading:false,
+      token:null
     }
+  },
+  beforeCreate(){
+    this.token = Cookies.get('token')
   }
 }
 </script>

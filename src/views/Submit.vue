@@ -59,7 +59,7 @@ export default {
           confirmButtonText:"אוקי",
         })
       }).then((r) => {
-        console.log(r.status)
+        if(!r) return;
         Swal.fire({
           title:'תודה על ההצעה',
           text:'!אנחנו נסתכל על ההעצה שלך ואם נחליט שהיא מתאימה אנחנו נוסיף אותה',

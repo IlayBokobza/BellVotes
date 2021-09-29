@@ -10,8 +10,16 @@ const schema = mongoose.Schema({
         required:true
     },
     owner:mongoose.Schema.Types.ObjectId,
+    ownerName:{
+        type:String,
+        required:true
+    },
+    songData:{
+        type:String,
+        required:true
+    },
 })
 
-const Submission = mongoose.model('Submission',schema)
+const AcceptedSubmission = mongoose.model('AcceptedSubmission',schema)
 
-module.exports = Submission
+module.exports = AcceptedSubmission

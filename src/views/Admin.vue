@@ -47,12 +47,16 @@ export default {
   },
   methods:{
     async accept(s){
+      this.$emit('toogleLoad')
       await axios.put(`/api/submit/${s._id}`).catch(e => (Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})))
       this.subs = this.subs.filter(i => i._id != s._id)
+      this.$emit('toogleLoad')
     },
     async deny(s){
+      this.$emit('toogleLoad')
       await axios.delete(`/api/submit/${s._id}`).catch(e => (Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})))
       this.subs = this.subs.filter(i => i._id != s._id)
+      this.$emit('toogleLoad')
     },
     async ban(s){
       //ask for confirm
@@ -67,8 +71,10 @@ export default {
 
       if(!isConfirmed) return;
 
+      this.$emit('toogleLoad')
       await axios.delete(`/api/submit/ban/${s._id}`).catch(e => (Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})))
       this.subs = this.subs.filter(i => i._id != s._id)
+      this.$emit('toogleLoad')
     },
   }
 }

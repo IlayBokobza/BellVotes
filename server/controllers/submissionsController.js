@@ -1,12 +1,14 @@
 const axios = require('axios').default
-const {Submission,AcceptedSubmission} = require('../models/submissionsModel')
+const Submission = require('../models/submissionsModel')
+const AcceptedSubmission = require('../models/accpetedSubmission')
 const User = require('../models/userModel')
 const dayjs = require('dayjs')
+const getSong = require('../Services/getSong')
+const chalk = require('chalk')
 
 class submissionsController{
     static async post(req,res){
         try{
-            
             //if banned
             if(req.user.bannedUntil > Date.now()){
                 res.status(401).send(`${dayjs(req.user.bannedUntil).format('D/M/YYYY')} אתה חסום עד`)
@@ -20,13 +22,13 @@ class submissionsController{
             }
 
             const {data} = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${req.body.videoId}&key=${process.env.YOUTUBE_API}`)
-            const {title,categoryId} = data.items[0].snippet
+            const {title/*,categoryId*/} = data.items[0].snippet
 
-            //checks if video is a music one
-            if(categoryId != "10"){
-                res.status(400).send('הסרטון הוא לא שיר')
-                return
-            }
+            // //checks if video is a music one
+            // if(categoryId != "10"){
+            //     res.status(400).send('הסרטון הוא לא שיר')
+            //     return
+            // }
 
             //check if title has hebrew in it
             if(!/(ק|ץ|ף|ר|א|ט|ו|ו|ן|ם|פ|ש|ג|ג|כ|ע|י|ח|ל|ך|ז|ס|ב|ה|נ|מ|צ|ד|ת)/.test(title)){
@@ -79,11 +81,16 @@ class submissionsController{
         try {
             const id = req.params.id
             let sub = await Submission.findByIdAndDelete(id)
+            const owner = await User.findById(sub.owner)
+
+            console.log(chalk.bgCyan(`Song "${sub.title}" with the id of ${sub._id} has been accpeted.`))
 
             sub = {
                 title:sub.title,
                 link:sub.link,
-                owner:sub.owner
+                owner:sub.owner,
+                ownerName:owner.name,
+                songData:await getSong(sub.link,60)
             }
 
             const accpetedSub = new AcceptedSubmission(sub)

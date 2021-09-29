@@ -1,21 +1,20 @@
-const auth = require('../Services/auth')
-const adminAuth = require('../Services/adminAuth')
+const Auth = require('../Services/auth')
 const controller = require('../controllers/submissionsController')
 const router = require('express').Router()
 
 //when submited request
-router.post('/',auth,controller.post)
+router.post('/',Auth.normalAuth,controller.post)
 
 //getting all submissions
-router.get('/',adminAuth,controller.get)
+router.get('/',Auth.adminAuth,controller.get)
 
 //when deny
-router.delete('/:id',adminAuth,controller.delete)
+router.delete('/:id',Auth.adminAuth,controller.delete)
 
 //when accept
-router.put('/:id',adminAuth,controller.put)
+router.put('/:id',Auth.adminAuth,controller.put)
 
 //when ban
-router.delete('/ban/:id',adminAuth,controller.ban)
+router.delete('/ban/:id',Auth.adminAuth,controller.ban)
 
 module.exports = router

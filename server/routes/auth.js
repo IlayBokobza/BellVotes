@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const adminAuth = require('../Services/adminAuth')
+const Auth = require('../Services/auth')
 
-router.get('/isAdmin',adminAuth,(req,res) => {
+router.get('/isAdmin',Auth.normalAuth,(req,res) => {
     res.send()
 })
 
