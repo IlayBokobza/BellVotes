@@ -90,7 +90,7 @@ class submissionsController{
                 link:sub.link,
                 owner:sub.owner,
                 ownerName:owner.name,
-                songData:await getSong(sub.link,60)
+                songData:await getSong(sub.link,req.body.time)
             }
 
             const accpetedSub = new AcceptedSubmission(sub)

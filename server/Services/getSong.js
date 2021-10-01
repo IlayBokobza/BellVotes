@@ -7,7 +7,6 @@ ffmpeg.setFfmpegPath(process.env.FFMPEG_PATH)
 
 const getSong = (id,starting) => {
     return new Promise((resolve,reject) => {
-
         console.log(chalk.bgCyan('Getting song'))
         let stream = ytdl(`https://www.youtube.com/watch?v=${id}`);
         const p = ffmpeg({source:stream})
@@ -16,7 +15,7 @@ const getSong = (id,starting) => {
         let isDone = false
         
         p.save(filepath)
-        .setStartTime('00:01:10').setDuration('10')
+        .setStartTime(`00:${starting}`).setDuration('10')
         .on('error',(e) => {
             reject(e)
             console.log(e)

@@ -3,7 +3,7 @@
     <!-- youtube embed -->
     <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${videoId}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
     <div>
-      <Input text=":(01:00)הצילצול מתחיל מ"></Input>
+      <Input @newValue="updateValue" text="זמן צילצול (לדוגמה 02:42)"></Input>
       <div class="submission-card__btn-container">
         <button @click="accept" class="btn submission-card__btn--accept">אשר</button>
         <button @click="deny" class="btn submission-card__btn--deny">דחה</button>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import Input from './Input.vue'
 export default {
     name:'submission-card',
@@ -23,12 +24,25 @@ export default {
     },
     data(){
         return{
-
+          timevalue:''
         }
     },
     methods:{
+      updateValue(v){
+        this.timevalue = v
+      },
       accept(){
-        this.$emit('accept')
+        if(!/[0-9][0-9]:[0-9][0-9]/.test(this.timevalue)){
+          Swal.fire({
+            title:'זמן לא תקין',
+            text:'הזמן צריך לראות ככה "שניות:דקות". לדוגמה: 01:53.',
+            icon:'error',
+          })
+
+          return
+        }
+
+        this.$emit('accept',this.timevalue)
       },
       deny(){
         this.$emit('deny')
