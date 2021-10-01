@@ -4,6 +4,7 @@ const chalk = require('chalk')
 const cookieParser = require("cookie-parser");
 
 require('dotenv').config()
+if(!process.env.MAX_SONGS) process.env.MAX_SONGS = 10;
 
 const app = express()
 app.use(express.json())

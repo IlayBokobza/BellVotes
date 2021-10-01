@@ -79,6 +79,11 @@ class submissionsController{
 
     static async put(req,res){
         try {
+            if(await AcceptedSubmission.count() >= parseInt(process.env.MAX_SONGS)){
+                res.status(400).send(`כבר אושרו מספר השירים המקסימלי של ${parseInt(process.env.MAX_SONGS)} שירים`)
+                return
+            }
+
             const id = req.params.id
             let sub = await Submission.findByIdAndDelete(id)
             const owner = await User.findById(sub.owner)
