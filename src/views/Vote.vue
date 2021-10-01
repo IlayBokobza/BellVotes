@@ -4,7 +4,7 @@
       <div class="top-row">שירים</div>
       <div v-for="song in songs" :key="song._id" class="row">
         
-        <a :href="`https://www.youtube.com/watch?v=${videoId}`">עבור לשיר</a>
+        <a :href="`https://www.youtube.com/watch?v=${song.videoId}`">עבור לשיר</a>
       </div>
     </div>
   </div>

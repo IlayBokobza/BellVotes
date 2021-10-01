@@ -2,6 +2,7 @@ const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 const User = require('../models/userModel')
 const fs = require('fs')
+const path = require('path')
 
 module.exports = class Auth{
     static async isAuth(token){

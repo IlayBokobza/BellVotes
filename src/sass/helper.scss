@@ -5,6 +5,10 @@ h1,h2,h3{
 #g-login{
     display: flex;
     justify-content: center;
+
+    span{
+        font-family: 'Roboto';
+    }
 }
 
 .title{
@@ -31,10 +35,6 @@ a,a:visited,a:link{
 
 ul{
     direction: rtl;
-}
-
-#g-login span{
-    font-family: 'Roboto' sans-serif;
 }
 
 .swal2-popup *{

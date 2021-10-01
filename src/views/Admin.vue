@@ -32,13 +32,16 @@ export default {
   async created(){
     this.$emit('toogleLoad')
 
-    const {data} = await axios.get('/api/submit').catch(e => {
+    const {data} = await axios.get('/api/submit').catch(async e => {
       console.log(e.response)
-      Swal.fire({
+      await Swal.fire({
         title:e.response.data,
         icon:'error',
         confirmButtonText:'חזור'
       })
+
+      this.$router.push('/vote')
+      this.$emit('toogleLoad')
     })
     
     this.subs = data

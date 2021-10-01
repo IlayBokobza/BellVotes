@@ -1,10 +1,8 @@
 const ytdl = require('ytdl-core')
 const ffmpeg = require('fluent-ffmpeg')
 const fs = require('fs')
-const {Readable} = require('stream')
 const chalk = require('chalk')
 const path = require('path')
-process.env.FFMPEG_PATH = 'D:/ffmpeg-4.4-essentials_build/bin/ffmpeg.exe'
 ffmpeg.setFfmpegPath(process.env.FFMPEG_PATH)
 
 const getSong = (id,starting) => {
@@ -16,12 +14,8 @@ const getSong = (id,starting) => {
         const filename = Math.random().toString(36).substring(2, 15)
         const filepath = path.resolve(__dirname,`../temp/${filename}.mp3`)
         let isDone = false
-        let output = fs.createWriteStream(Buffer.from('','base64'))
         
-        p.addOption([
-            '-f'
-        ])
-        .output(output)
+        p.save(filepath)
         .setStartTime('00:01:10').setDuration('10')
         .on('error',(e) => {
             reject(e)
@@ -33,14 +27,13 @@ const getSong = (id,starting) => {
         .on('end',() => {
             if(isDone) return
             isDone = true
-            
-        
-            // const songData = fs.readFileSync(filepath).toString('base64')
-            // fs.rmSync(filepath)
+
+            const songData = fs.readFileSync(filepath).toString('base64')
+            fs.rmSync(filepath)
 
             console.log(chalk.bgBlue('DONE!'))
 
-            resolve('songData')
+            resolve(songData)
         }).run()
     })
 }
