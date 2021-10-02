@@ -3,7 +3,7 @@ const Submission = require('../models/submissionsModel')
 const AcceptedSubmission = require('../models/accpetedSubmission')
 const User = require('../models/userModel')
 const dayjs = require('dayjs')
-const getSong = require('../Services/getSong')
+const ProccessVideo = require('../Services/proccessVideo')
 const chalk = require('chalk')
 
 class submissionsController{
@@ -85,25 +85,29 @@ class submissionsController{
             }
 
             const id = req.params.id
-            let sub = await Submission.findByIdAndDelete(id)
+            let sub = await Submission.findById(id)
             const owner = await User.findById(sub.owner)
 
             console.log(chalk.bgCyan(`Song "${sub.title}" with the id of ${sub._id} has been accpeted.`))
+
+            const song = new ProccessVideo(sub.link,req.body.time)
+            const songData = await song.getBellFromVideo()
 
             sub = {
                 title:sub.title,
                 link:sub.link,
                 owner:sub.owner,
                 ownerName:owner.name,
-                songData:await getSong(sub.link,req.body.time)
+                songData,
             }
 
             const accpetedSub = new AcceptedSubmission(sub)
             await accpetedSub.save()
+            await sub.delete()
 
             res.send()
         } catch (e) {
-            console.log(e)
+            // console.log(e)
             res.status(500).send(e)
         }
     }
