@@ -6,7 +6,7 @@
               <li>שם התלמיד: <span>{{ban.userName}}</span></li>
               <li>איימל של התלמיד: <span>{{ban.userEmail}}</span></li>
               <li>נחסם ב <span>{{ban.date}}</span></li>
-              <li>חוסם עד <span>{{ban.bannedUntil}}</span></li>
+              <li>חסום עד <span>{{ban.bannedUntil}}</span></li>
           </ul>
       </div>
   </div>
@@ -27,27 +27,29 @@ export default {
     })
   },
   async created(){
+    this.$emit('toogleLoad')
     const {data} = await axios.get('/api/submit/bans')
     this.bans = data
+    this.$emit('toogleLoad')
   },
 }
 </script>
 
 <style lang="scss">
 .bans{
-    .ban-card{
-        background-color: var(--color2);
-        width: 35%;
-        font-size: 3rem;
-        margin: 0 auto;
-        padding: 1rem 3rem;
-        border-radius: 10px;
-        box-shadow: 13px 13px 14px rgba(rgb(32, 32, 32),.5);
-        margin-bottom: 2rem;
+  .ban-card{
+    background-color: var(--color2);
+    width: 35%;
+    font-size: 3rem;
+    margin: 0 auto;
+    padding: 1rem 3rem;
+    border-radius: 10px;
+    box-shadow: 13px 13px 14px rgba(rgb(32, 32, 32),.5);
+    margin-bottom: 2rem;
 
-        span{
-          color: #2e2e2e;
-        }
+    span{
+      color: #2e2e2e;
     }
+  }
 }
 </style>
