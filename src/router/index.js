@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cookies from 'js-cookie'
+import axios from 'axios'
 
 import Login from '../views/Login.vue'
 import Vote from '../views/Vote.vue'
 import SubmitPage from '../views/Submit.vue'
 import Admin from '../views/Admin.vue'
-import axios from 'axios'
+import Bans from '../views/Bans.vue'
 
 
 Vue.use(VueRouter)
@@ -21,6 +22,24 @@ const onlyLogin = (to,from,next) => {
   next()
 }
 
+const onlyAdmin = async (to,from,next) => {
+  //checks if uses in logged in
+  if(!Cookies.get('token')){
+    console.log('user not logged in redirecting')
+    next('/')
+    return
+  }
+
+  await axios.get('/api/auth/isAdmin').catch(() => {
+    console.log('user not admin')
+    next('/vote')
+    return
+  })
+  
+  next()
+}
+
+//routes
 const routes = [
   {
     path: '/',
@@ -50,22 +69,13 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: Admin,
-    async beforeEnter(to,from,next){
-      //checks if uses in logged in
-      if(!Cookies.get('token')){
-        console.log('user not logged in redirecting')
-        next('/')
-        return
-      }
-
-      await axios.get('/api/auth/isAdmin').catch(() => {
-        console.log('user not admin')
-        next('/vote')
-        return
-      })
-      
-      next()
-    }
+    beforeEnter:onlyAdmin,
+  },
+  {
+    path: '/bans',
+    name: 'bans',
+    component: Bans,
+    beforeEnter:onlyAdmin,
   },
 ]
 

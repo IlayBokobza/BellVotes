@@ -25,8 +25,8 @@ export default {
   },
   beforeCreate(){
     this.$store.commit('setTitle',{
-      text:'בחזרה לבית',
-      link:'/'
+      text:'רשימת חסימות',
+      link:'/bans'
     })
   },
   async created(){

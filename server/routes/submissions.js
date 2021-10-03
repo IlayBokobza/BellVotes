@@ -8,6 +8,9 @@ router.post('/',Auth.normalAuth,controller.post)
 //getting all submissions
 router.get('/',Auth.adminAuth,controller.get)
 
+//getting all bans
+router.get('/bans',Auth.adminAuth,controller.getBans)
+
 //when deny
 router.delete('/:id',Auth.adminAuth,controller.delete)
 
