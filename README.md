@@ -1,13 +1,18 @@
-# bellvotes
+# Pelech Bell Voting System
 
 ## Project setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Serve app in dev mode
 ```
 npm run serve
+```
+
+### Start dev backend server
+```
+npm run dev
 ```
 
 ### Compiles and minifies for production
@@ -15,10 +20,7 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Contribute
+Feel free to create pull request and suggest features.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+I even challenge you break my app and tell me how! I would love to know.
