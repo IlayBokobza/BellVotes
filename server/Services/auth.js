@@ -24,7 +24,8 @@ module.exports = class Auth{
 
             return [true,payload]
         }
-        catch{
+        catch(e){
+            console.log(e)
             return [false,null]
         }
     }

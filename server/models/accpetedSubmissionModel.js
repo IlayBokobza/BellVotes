@@ -18,6 +18,10 @@ const schema = mongoose.Schema({
         type:String,
         required:true
     },
+    votes:{
+        type:Number,
+        default:0
+    }
 })
 
 const AcceptedSubmission = mongoose.model('AcceptedSubmission',schema)

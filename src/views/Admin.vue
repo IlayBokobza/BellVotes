@@ -33,7 +33,7 @@ export default {
     this.$emit('toogleLoad')
 
     const {data} = await axios.get('/api/submit').catch(async e => {
-      console.log(e.response)
+      console.warn(e.response)
       await Swal.fire({
         title:e.response.data,
         icon:'error',
@@ -49,11 +49,18 @@ export default {
     this.$emit('toogleLoad')
   },
   methods:{
-    async accept(time,s){
+    accept(time,s){
       this.$emit('toogleLoad')
-      await axios.put(`/api/submit/${s._id}`,{time}).catch(e => (Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})))
-      this.subs = this.subs.filter(i => i._id != s._id)
-      this.$emit('toogleLoad')
+
+      axios.put(`/api/submit/${s._id}`,{time}).catch(e => {
+        //show error is pupup
+        console.log(e.response)
+        Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})
+      })
+      .then(() => {
+        this.subs = this.subs.filter(i => i._id != s._id)
+        this.$emit('toogleLoad')
+      })
     },
     async deny(s){
       this.$emit('toogleLoad')

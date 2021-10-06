@@ -8,6 +8,9 @@ router.post('/',Auth.normalAuth,controller.post)
 //getting all submissions
 router.get('/',Auth.adminAuth,controller.get)
 
+//getting all the accpepted submissions
+router.get('/accpeted',Auth.normalAuth,controller.getAccpeted)
+
 //getting all bans
 router.get('/bans',Auth.adminAuth,controller.getBans)
 

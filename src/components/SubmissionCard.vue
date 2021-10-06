@@ -32,7 +32,7 @@ export default {
         this.timevalue = v
       },
       accept(){
-        if(!/[0-9][0-9]:[0-9][0-9]/.test(this.timevalue)){
+        if(!/[0-9][0-9]:[0-5][0-9]/.test(this.timevalue) && !/[0-9][0-9]:60/.test(this.timevalue)){
           Swal.fire({
             title:'זמן לא תקין',
             text:'הזמן צריך לראות ככה "שניות:דקות". לדוגמה: 01:53.',
