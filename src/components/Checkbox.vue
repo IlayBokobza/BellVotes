@@ -30,7 +30,6 @@ export default {
             const svg = document.getElementById(this.svgId)
 
             if (val){
-                console.log(checkbox.checked)
                 svg.classList.add("reverse")
                 checkbox.checked = true
                 checkbox.disabled = true

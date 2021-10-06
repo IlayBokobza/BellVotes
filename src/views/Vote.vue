@@ -15,7 +15,7 @@
         <span>{{s.ownerName}}</span>
         <span>{{s.votes}}</span>
         <span class="material-icons play" @click="playsound(s.songData)">volume_up</span>
-        <span @click="selectedSong = s._id"><Checkbox :id="s._id" :trigger="selectedSong" /></span>
+        <span @click="vote(s)"><Checkbox :id="s._id" :trigger="selectedSong" /></span>
       </div>
     </div>
   </div>
@@ -45,12 +45,22 @@ export default {
     })
   },
   async created(){
-      const {data} = await axios.get('/api/submit/accpeted')
-      data.sort((a,b) => (a.votes < b.votes) ? 1 : ((b.votes < a.votes) ? -1 : 0))
-      
-      this.songs = data
+    //gets the songs
+    const {data} = await axios.get('/api/submit/accpeted')
+    data.sort((a,b) => (a.votes < b.votes) ? 1 : ((b.votes < a.votes) ? -1 : 0))
+    this.songs = data
+
+    //gets the user's vote
+    const {data:vote} = await axios.get('/api/submit/myVote')
+    this.selectedSong = vote
   },
   methods:{
+    async vote(s){
+      if(this.selectedSong == s._id) return
+      this.selectedSong = s._id
+
+      await axios.post(`/api/submit/vote/${s._id}`)
+    },
     playsound(sound){
       this.playingSound.pause()
       this.playingSound = new Audio(`data:audio/mp3;base64,${sound}`)

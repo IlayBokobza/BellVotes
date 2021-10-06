@@ -5,6 +5,12 @@ const router = require('express').Router()
 //when submited request
 router.post('/',Auth.normalAuth,controller.post)
 
+//when voted for a song
+router.post('/vote/:id',Auth.normalAuth,controller.vote)
+
+//gets the users vote
+router.get('/myVote',Auth.normalAuth,controller.getMyVote)
+
 //getting all submissions
 router.get('/',Auth.adminAuth,controller.get)
 

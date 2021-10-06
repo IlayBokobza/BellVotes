@@ -13,6 +13,9 @@ const schema = mongoose.Schema({
         type:Boolean,
         default:false,
     },
+    votedFor:{
+        type:mongoose.Types.ObjectId
+    },
     bannedUntil:{
         type:Number,
         default:0,

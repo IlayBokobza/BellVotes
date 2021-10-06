@@ -159,6 +159,43 @@ class submissionsController {
             res.status(500).send(e)
         }
     }
+
+    static async vote(req,res){
+        try {
+            const id = req.params.id
+            if(req.user.votedFor == id){
+                res.status(400).send('Already voted for that song.')
+                return
+            }
+            
+            if(req.user.votedFor){
+                const oldSub = await AcceptedSubmission.findById(req.user.votedFor)
+                oldSub.votes--
+                await oldSub.save()
+            }
+            
+            req.user.votedFor = id
+            const sub = await AcceptedSubmission.findById(id)
+            sub.votes++
+
+            await req.user.save()
+            await sub.save()
+
+            res.send()
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
+        }
+    }
+
+    static async getMyVote(req,res){
+        try {
+            res.send(req.user.votedFor)
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
+        }
+    }
 }
 
 module.exports = submissionsController
