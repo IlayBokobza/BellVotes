@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const chalk = require('chalk')
+const path = require('path')
 const cookieParser = require("cookie-parser");
 
 require('dotenv').config()
@@ -13,6 +14,12 @@ app.use(cookieParser());
 //setup routes
 app.use('/api/submit',require('./routes/submissions'))
 app.use('/api/auth',require('./routes/auth'))
+
+//hosts app
+app.use(express.static(path.resolve(__dirname,'./dist')))
+app.get(/.*/,(req,res) => {
+    res.sendFile(path.resolve(__dirname,'./dist/index.html'))
+})
 
 //connects to mongo
 mongoose.connect(process.env.MONGO,{
