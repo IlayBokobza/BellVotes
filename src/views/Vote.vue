@@ -57,6 +57,11 @@ export default {
   methods:{
     async vote(s){
       if(this.selectedSong == s._id) return
+      const newSelectedIndex = this.songs.findIndex((item) => item._id == s._id)
+      const oldSelectedIndex = this.songs.findIndex((item) => item._id == this.selectedSong)
+      this.songs[newSelectedIndex].votes++
+      this.songs[oldSelectedIndex].votes--
+
       this.selectedSong = s._id
 
       await axios.post(`/api/submit/vote/${s._id}`)

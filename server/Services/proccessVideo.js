@@ -72,7 +72,7 @@ module.exports = class ProccessVideo {
         return new Promise(async(resolve, reject) => {
             try {
                 ProccessVideo.logProgress('Getting song')
-                const stream = ytdl(`https://www.youtube.com/watch?v=${this.id}`);
+                const stream = ytdl(`https://www.youtube.com/watch?v=${this.id}`,{filter:'audioonly'});
                 const isTimeStampValid = await this.checkVideoLength()
 
                 if (!isTimeStampValid) {
