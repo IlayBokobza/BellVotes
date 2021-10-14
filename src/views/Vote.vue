@@ -14,7 +14,8 @@
         <span>{{s.title}}</span>
         <span>{{s.ownerName}}</span>
         <span>{{s.votes}}</span>
-        <span class="material-icons play" @click="playsound(s.songData)">volume_up</span>
+        <span class="material-icons play" v-if="isPlaying && s._id == playingSoundId" @click="playsound(s)">pause</span>
+        <span class="material-icons play" v-else @click="playsound(s)">volume_up</span>
         <span @click="vote(s)"><Checkbox :id="s._id" :trigger="selectedSong" /></span>
       </div>
     </div>
@@ -36,6 +37,8 @@ export default {
     return {
       songs:[],
       playingSound:new Audio(),
+      playingSoundId:null,
+      isPlaying:false,
       selectedSong:null,
     }
   },
@@ -70,9 +73,22 @@ export default {
       await axios.post(`/api/submit/vote/${s._id}`)
     },
     playsound(sound){
-      this.playingSound.pause()
-      this.playingSound = new Audio(`data:audio/mp3;base64,${sound}`)
-      this.playingSound.play()
+      if(this.isPlaying && sound._id == this.playingSoundId){
+        this.isPlaying = false
+        this.playingSound.pause()
+      }
+      else{
+        this.isPlaying = true
+        this.playingSoundId = sound._id
+        this.playingSound.pause()
+        this.playingSound = new Audio(`data:audio/mp3;base64,${sound.songData}`)
+        this.playingSound.play()
+
+        this.playingSound.addEventListener('ended',() => {
+          console.log('ended')
+          this.isPlaying = false
+        })
+      }
     }
   }
 }
@@ -101,7 +117,7 @@ export default {
   }
 
   .top{
-    background-color: var(--color4);
+    background-color: var(--color5);
   }
 
   .row{
@@ -110,6 +126,10 @@ export default {
 
     &:hover{
       background-color: var(--color4);
+    }
+
+    &:hover .box{
+      fill: var(--color5) !important; 
     }
   }
 

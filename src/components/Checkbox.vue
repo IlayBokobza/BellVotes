@@ -68,7 +68,8 @@ input[type=checkbox] {
 
             .box {
                 stroke-dasharray: 320;
-                stroke-dashoffset: 0;
+                stroke-dashoffset: 320;
+                transition: all .1s;
                 fill: var(--color4) !important;
             }
             .check {
