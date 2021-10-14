@@ -31,8 +31,14 @@ export default {
     }
 
     .github{
-        width: 40px;
+        width: 20px;
         margin-right:1rem ;
+    }
+
+    & > *{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 </style>
