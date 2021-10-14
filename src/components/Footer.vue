@@ -1,10 +1,10 @@
 <template>
   <footer class="footer">
       <div>
-          <a href="https://github.com/IlayBokobza/BellVotes"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png" class="github" alt="github logo"></a>
           <span>&copy; {{new Date().getFullYear()}}</span>
+          <a href="https://github.com/IlayBokobza/BellVotes"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png" class="github" alt="github logo"></a>
         </div>
-      <div>נבנה על ידי <a href="https://ilaydev.com">אלעאי בוקובזה</a></div>
+      <div class="credit">נבנה על ידי <a href="https://ilaydev.com">אלעאי בוקובזה</a></div>
   </footer>
 </template>
 
@@ -37,8 +37,13 @@ export default {
 
     & > *{
         display: inline-flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
+        flex-direction: row-reverse;
+    }
+
+    .credit a{
+        margin: 0 5px;
     }
 }
 </style>

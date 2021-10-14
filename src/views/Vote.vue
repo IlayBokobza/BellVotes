@@ -1,6 +1,6 @@
 <template>
-  <div class="vote" id="votes">
-    <TopSongs v-if="songs.length > 0" :songs="songs" />  
+  <div class="vote" id="votes" v-if="songs.length > 0">
+    <TopSongs v-if="songs.length >= 5" :songs="songs" />  
     <!-- songs table -->
     <div class="table">
       <div class="top">
@@ -19,6 +19,7 @@
       </div>
     </div>
   </div>
+  <h1 v-else>עדיין לא הועלו שירים</h1>
 </template>
 
 <script>
@@ -45,6 +46,7 @@ export default {
     })
   },
   async created(){
+    this.$emit('toogleLoad')
     //gets the songs
     const {data} = await axios.get('/api/submit/accpeted')
     data.sort((a,b) => (a.votes < b.votes) ? 1 : ((b.votes < a.votes) ? -1 : 0))
@@ -53,6 +55,7 @@ export default {
     //gets the user's vote
     const {data:vote} = await axios.get('/api/submit/myVote')
     this.selectedSong = vote
+    this.$emit('toogleLoad')
   },
   methods:{
     async vote(s){
