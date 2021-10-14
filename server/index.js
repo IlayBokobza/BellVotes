@@ -15,6 +15,11 @@ app.use(cookieParser());
 app.use('/api/submit',require('./routes/submissions'))
 app.use('/api/auth',require('./routes/auth'))
 
+//serves favicon
+app.get('/favicon',(req,res) => {
+    res.sendFile(path.resolve(__dirname,'./dist/favicon.png'))
+})
+
 //hosts app
 app.use(express.static(path.resolve(__dirname,'./dist')))
 app.get(/.*/,(req,res) => {
