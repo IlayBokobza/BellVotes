@@ -53,7 +53,7 @@ export default {
       if(this.selectedSong == s._id) return
       this.$store.commit('voteForSong',s._id)
 
-      // await axios.post(`/api/submit/vote/${s._id}`)
+      await axios.post(`/api/submit/vote/${s._id}`)
     },
     playsound(sound){
       if(this.isPlaying && sound._id == this.playingSoundId){
