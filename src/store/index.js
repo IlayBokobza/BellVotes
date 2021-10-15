@@ -47,6 +47,9 @@ export default new Vuex.Store({
       state.acceptedSubmissions[oldSelectedIndex].votes--
       state.myVote = newSongId
       console.log(state.acceptedSubmissions[newSelectedIndex]._id)
+    },
+    removeSong:(state,songId) => {
+      state.submissions = state.submissions.filter(i => i._id != songId)
     }
   },
   actions: {

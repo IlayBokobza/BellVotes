@@ -4,6 +4,7 @@
     <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${videoId}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
     <div>
       <Input @newValue="updateValue" text="זמן צילצול (לדוגמה 02:42)"></Input>
+      <Input @newValue="updateNameValue" :startingText="videoName" text="שם השיר"></Input>
       <div class="submission-card__btn-container">
         <button @click="accept" class="btn submission-card__btn--accept">אשר</button>
         <button @click="deny" class="btn submission-card__btn--deny">דחה</button>
@@ -18,20 +19,25 @@ import Swal from 'sweetalert2';
 import Input from './Input.vue'
 export default {
     name:'submission-card',
-    props:['videoId'],
+    props:['videoId','videoName'],
     components:{
         Input,
     },
     data(){
         return{
-          timevalue:''
+          timevalue:'',
+          nameValue:this.videoName
         }
     },
     methods:{
       updateValue(v){
         this.timevalue = v
       },
+      updateNameValue(v){
+        this.nameValue = v
+      },
       accept(){
+        //check for invalid time stamp
         if(!/[0-9][0-9]:[0-5][0-9]/.test(this.timevalue) && !/[0-9][0-9]:60/.test(this.timevalue)){
           Swal.fire({
             title:'זמן לא תקין',
@@ -42,7 +48,17 @@ export default {
           return
         }
 
-        this.$emit('accept',this.timevalue)
+        //check for no name
+        if(!this.nameValue){
+          Swal.fire({
+            title:'לא ניתן שם',
+            icon:'error',
+          })
+
+          return
+        }
+
+        this.$emit('accept',{time:this.timevalue,name:this.nameValue})
       },
       deny(){
         this.$emit('deny')
@@ -69,6 +85,10 @@ export default {
 
   & > *{
     margin-bottom: 2rem;
+  }
+
+  & *::selection{
+    background-color: var(--color1);
   }
 
   input{

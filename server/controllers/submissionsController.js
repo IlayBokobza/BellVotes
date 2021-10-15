@@ -98,13 +98,13 @@ class submissionsController {
             const sub = await Submission.findById(id)
             const owner = await User.findById(sub.owner)
 
-            ProccessVideo.logProgress(`Song "${sub.title}" with the id of ${sub._id} has been accpeted.`)
+            ProccessVideo.logProgress(`Song "${req.body.name}" with the id of ${sub._id} has been accpeted.`)
 
             const song = new ProccessVideo(sub.link, req.body.time)
             const songData = await song.getBellFromVideo()
 
             const subData = {
-                title: sub.title,
+                title: req.body.name,
                 link: sub.link,
                 owner: sub.owner,
                 ownerName: owner.name,

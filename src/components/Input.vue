@@ -9,7 +9,10 @@
 import Vue from 'vue'
 export default Vue.extend({
     name:"Input",
-    props:['text','type'],
+    props:['text','type','startingText'],
+    created(){
+        this.value = this.startingText
+    },
     data(){
         return{
             id:Math.random().toString(36).substring(2, 15),

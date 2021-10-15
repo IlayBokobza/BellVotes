@@ -68,7 +68,6 @@ export default {
         this.playingSound.play()
 
         this.playingSound.addEventListener('ended',() => {
-          console.log('ended')
           this.isPlaying = false
         })
       }
