@@ -10,8 +10,13 @@ Vue.config.productionTip = false
 const getData = async () => {
   let {data:accpeted} = await axios.get('/api/submit/accpeted')
   const {data:myVote} = await axios.get('/api/submit/myVote')
-  const {status:isAdmin} = await axios.get('/api/auth/isAdmin')
-
+  
+  try{
+    var {status:isAdmin} = await axios.get('/api/auth/isAdmin')
+  }
+  catch({response}){
+    isAdmin = response.status
+  }
   accpeted = accpeted.sort((a,b) => (a.votes < b.votes) ? 1 : ((b.votes < a.votes) ? -1 : 0))
   store.commit('setSubmissionsData',{accpeted,myVote,isAdmin:isAdmin === 200})
 

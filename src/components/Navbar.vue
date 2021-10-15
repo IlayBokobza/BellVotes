@@ -1,6 +1,10 @@
 <template>
     <div v-if="pageTitle" class="navbar">
-        <router-link :to="pageTitle.link">{{pageTitle.text || "no title given"}}</router-link>
+        <div class="links">
+            <router-link v-if="isAdmin && ($route.path === '/admin' || $route.path === '/bans')" to="/vote">חזרה</router-link>
+            <router-link v-else-if="isAdmin" to="/admin">לעמוד המנהלים</router-link>
+            <router-link :to="pageTitle.link">{{pageTitle.text || "no title given"}}</router-link>
+        </div>
         <div class="profile">
             <p>{{username}}</p>
             <img :src="image" alt="">
@@ -27,6 +31,9 @@ export default {
         },
         pageTitle(){
             return this.$store.state.pageTitle
+        },
+        isAdmin(){
+            return this.$store.state.isAdmin
         }
     }
 }
@@ -43,6 +50,10 @@ export default {
     background-color: var(--color3);
     font-size: 2rem;
     margin-bottom: 2rem;
+
+    .links a{
+        margin-right: 1rem;
+    }
 
     .profile{
         display: flex;
