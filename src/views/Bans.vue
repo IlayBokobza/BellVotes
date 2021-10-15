@@ -13,25 +13,18 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  data(){
-    return{
-      bans:[]
-    }
-  },
   beforeCreate(){
     this.$store.commit('setTitle',{
       text:'רשימת בקשות',
       link:'/admin'
     })
   },
-  async created(){
-    this.$emit('toogleLoad')
-    const {data} = await axios.get('/api/submit/bans')
-    this.bans = data
-    this.$emit('toogleLoad')
-  },
+  computed:{
+    bans(){
+      return this.$store.state.bans
+    }
+  }
 }
 </script>
 

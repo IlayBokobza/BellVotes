@@ -19,10 +19,14 @@ export default {
     props:['id','trigger'],
     name: "checkbox",
     data() {
-    return {
-        inputId: Math.random().toString(36).substring(2, 15),
-        svgId: Math.random().toString(36).substring(2, 15),
-    };
+        return {
+            inputId: Math.random().toString(36).substring(2, 15),
+            svgId: Math.random().toString(36).substring(2, 15),
+        };
+    },
+    mounted(){
+        // console.log(this.id,this.trigger,this.id  === this.trigger)
+        this.setBox(this.id  === this.trigger)
     },
     methods: {
         setBox(val) {

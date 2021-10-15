@@ -18,35 +18,11 @@ export default {
   components:{
     SubmissionCard,
   },
-  data(){
-    return{
-      subs:[]
-    }
-  },
   beforeCreate(){
     this.$store.commit('setTitle',{
       text:'רשימת חסימות',
       link:'/bans'
     })
-  },
-  async created(){
-    this.$emit('toogleLoad')
-
-    const {data} = await axios.get('/api/submit').catch(async e => {
-      console.warn(e.response)
-      await Swal.fire({
-        title:e.response.data,
-        icon:'error',
-        confirmButtonText:'חזור'
-      })
-
-      this.$router.push('/vote')
-      this.$emit('toogleLoad')
-    })
-    
-    this.subs = data
-
-    this.$emit('toogleLoad')
   },
   methods:{
     accept(time,s){
@@ -86,6 +62,11 @@ export default {
       this.subs = this.subs.filter(i => i._id != s._id)
       this.$emit('toogleLoad')
     },
+  },
+  computed:{
+    subs(){
+      return this.$store.state.submissions
+    }
   }
 }
 </script>

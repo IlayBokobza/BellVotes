@@ -10,13 +10,13 @@
         <span>השמעה</span>
         <span>הצבעה</span>
       </div>
-      <div class="row" v-for="s in songs" :key="s._id">
+      <div class="row" v-for="s in songs" :id="s._id" :key="s._id">
         <span>{{s.title}}</span>
         <span>{{s.ownerName}}</span>
         <span>{{s.votes}}</span>
         <span class="material-icons play" v-if="isPlaying && s._id == playingSoundId" @click="playsound(s)">pause</span>
         <span class="material-icons play" v-else @click="playsound(s)">volume_up</span>
-        <span @click="vote(s)"><Checkbox :id="s._id" :trigger="selectedSong" /></span>
+        <span  @click="vote(s)"><Checkbox :id="s._id" :trigger="selectedSong" /></span>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import TopSongs from '../components/TopSongs.vue'
 import Checkbox from '../components/Checkbox.vue'
 export default {
@@ -35,42 +35,25 @@ export default {
   },
   data(){
     return {
-      songs:[],
+      // songs:[],
       playingSound:new Audio(),
       playingSoundId:null,
       isPlaying:false,
-      selectedSong:null,
+      // selectedSong:null,
     }
   },
-  beforeCreate(){
+  created(){
     this.$store.commit('setTitle',{
       text:'הציעו שיר לפעם הבא',
       link:'/submit'
     })
   },
-  async created(){
-    this.$emit('toogleLoad')
-    //gets the songs
-    const {data} = await axios.get('/api/submit/accpeted')
-    data.sort((a,b) => (a.votes < b.votes) ? 1 : ((b.votes < a.votes) ? -1 : 0))
-    this.songs = data
-
-    //gets the user's vote
-    const {data:vote} = await axios.get('/api/submit/myVote')
-    this.selectedSong = vote
-    this.$emit('toogleLoad')
-  },
   methods:{
     async vote(s){
       if(this.selectedSong == s._id) return
-      const newSelectedIndex = this.songs.findIndex((item) => item._id == s._id)
-      const oldSelectedIndex = this.songs.findIndex((item) => item._id == this.selectedSong)
-      this.songs[newSelectedIndex].votes++
-      this.songs[oldSelectedIndex].votes--
+      this.$store.commit('voteForSong',s._id)
 
-      this.selectedSong = s._id
-
-      await axios.post(`/api/submit/vote/${s._id}`)
+      // await axios.post(`/api/submit/vote/${s._id}`)
     },
     playsound(sound){
       if(this.isPlaying && sound._id == this.playingSoundId){
@@ -89,6 +72,14 @@ export default {
           this.isPlaying = false
         })
       }
+    }
+  },
+  computed:{
+    songs(){
+      return this.$store.state.acceptedSubmissions
+    },
+    selectedSong(){
+      return this.$store.state.myVote
     }
   }
 }
