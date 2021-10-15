@@ -24,7 +24,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 import TopSongs from '../components/TopSongs.vue'
 import Checkbox from '../components/Checkbox.vue'
 export default {
