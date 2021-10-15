@@ -1,5 +1,5 @@
 <template>
-  <div class="submit">
+  <form @submit.prevent="send" class="submit">
     <h2>חוקים</h2>
     <ul>
       <li>הקישור חייב להיות לשיר</li>
@@ -8,8 +8,8 @@
       <li>אם אתה עובר על אחד או יותר מהחוקים האלה אתה תוכל תחסם מלשלוח עוד הצעות</li>
     </ul>
     <Input @newValue="updateValue" text="קישור לשיר ביוטיוב"></Input>
-    <button class="btn" @click="getVideo">שלח</button>
-  </div>
+    <button class="btn">שלח</button>
+  </form>
 </template>
 
 <script>
@@ -34,7 +34,7 @@ export default {
     Input,
   },
   methods:{
-    async getVideo(){
+    async send(){
       const reg = /https:\/\/(www.)?youtube.com\/watch\?/
 
       //tests if is a youtube link
