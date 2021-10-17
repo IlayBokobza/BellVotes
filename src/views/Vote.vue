@@ -45,7 +45,6 @@ export default {
       text:'הציעו שיר לפעם הבא',
       link:'/submit'
     })
-    console.log(this.songs)
   },
   methods:{
     async vote(s){
