@@ -115,7 +115,7 @@ class submissionsController {
             await accpetedSub.save()
             await sub.delete()
 
-            res.send()
+            res.send(accpetedSub)
         } catch (e) {
             console.log(e)
             res.status(500).send(e)

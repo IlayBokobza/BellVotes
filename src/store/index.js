@@ -53,7 +53,8 @@ export default new Vuex.Store({
     },
     removeSong:(state,songId) => {
       state.submissions = state.submissions.filter(i => i._id != songId)
-    }
+    },
+    addSong:(state,payload) => (state.acceptedSubmissions.push(payload))
   },
   actions: {
     signout(){
