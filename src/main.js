@@ -10,6 +10,7 @@ Vue.config.productionTip = false
 const getData = async () => {
   let {data:accpeted} = await axios.get('/api/submit/accpeted')
   const {data:myVote} = await axios.get('/api/submit/myVote')
+  console.log(accpeted)
   
   try{
     var {status:isAdmin} = await axios.get('/api/auth/isAdmin')

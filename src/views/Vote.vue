@@ -35,11 +35,9 @@ export default {
   },
   data(){
     return {
-      // songs:[],
       playingSound:new Audio(),
       playingSoundId:null,
       isPlaying:false,
-      // selectedSong:null,
     }
   },
   created(){
