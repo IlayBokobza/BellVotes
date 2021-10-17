@@ -2,7 +2,7 @@
 pm2 stop server/index.js
 
 # updates server
-cd ~/BellVotes
+cd /root/BellVotes
 git pull origin master
 npm i
 npm run build
