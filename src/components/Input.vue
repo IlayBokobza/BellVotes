@@ -48,6 +48,7 @@ export default Vue.extend({
         padding: .1rem;
         width: 30rem;
         font-size: 1.6rem;
+        text-align: right;
 
         &:focus{
             border-bottom: .4rem solid var(--focus);
