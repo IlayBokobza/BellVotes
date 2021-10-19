@@ -25,5 +25,6 @@ const schema = mongoose.Schema({
 })
 
 const AcceptedSubmission = mongoose.model('AcceptedSubmission',schema)
+const FutureSubmission = mongoose.model('FutureSubmission',schema)
 
-module.exports = AcceptedSubmission
+module.exports = {AcceptedSubmission,FutureSubmission}

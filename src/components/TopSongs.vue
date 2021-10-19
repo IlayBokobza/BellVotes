@@ -71,12 +71,12 @@ export default {
             .attr("height", d => y(0) - y(d.score))
             .attr("width", x.bandwidth());
 
-        function yAxis(g) {
-          g.attr("transform", `translate(${margin.left}, 0)`)
-            .call(d3.axisLeft(y).ticks(null, data.format))
-            .attr("font-size", '20px')
+        // function yAxis(g) {
+        //   g.attr("transform", `translate(${margin.left}, 0)`)
+        //     .call(d3.axisLeft(y).ticks(null, data.format))
+        //     .attr("font-size", '20px')
 
-        }
+        // }
 
         function xAxis(g) {
           g.attr("transform", `translate(0,${height - margin.bottom})`)
@@ -85,7 +85,7 @@ export default {
         }
 
         svg.append("g").call(xAxis);
-        svg.append("g").call(yAxis);
+        // svg.append("g").call(yAxis);
         svg.node();
       }
 }

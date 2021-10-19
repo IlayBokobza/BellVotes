@@ -1,6 +1,6 @@
 const axios = require('axios').default
 const Submission = require('../models/submissionsModel')
-const AcceptedSubmission = require('../models/accpetedSubmissionModel')
+const {FutureSubmission, AcceptedSubmission} = require('../models/accpetedSubmissionModel')
 const User = require('../models/userModel')
 const Ban = require('../models/banRecord')
 const dayjs = require('dayjs')
@@ -89,10 +89,10 @@ class submissionsController {
 
     static async put(req, res) {
         try {
-            if (await AcceptedSubmission.count() >= parseInt(process.env.MAX_SONGS)) {
-                res.status(400).send(`כבר אושרו מספר השירים המקסימלי של ${parseInt(process.env.MAX_SONGS)} שירים`)
-                return
-            }
+            // if (await FutureSubmission.count() >= parseInt(process.env.MAX_SONGS)) {
+            //     res.status(400).send(`כבר אושרו מספר השירים המקסימלי של ${parseInt(process.env.MAX_SONGS)} שירים`)
+            //     return
+            // }
 
             const id = req.params.id
             const sub = await Submission.findById(id)
@@ -107,11 +107,12 @@ class submissionsController {
                 title: req.body.name,
                 link: sub.link,
                 owner: sub.owner,
-                ownerName: owner.name,
+                // ownerName: owner?.name ?? "Error no owner found found" ,
+                ownerName: owner.name ,
                 songData,
             }
 
-            const accpetedSub = new AcceptedSubmission(subData)
+            const accpetedSub = new FutureSubmission(subData)
             await accpetedSub.save()
             await sub.delete()
 
@@ -169,13 +170,13 @@ class submissionsController {
             }
             
             if(req.user.votedFor){
-                const oldSub = await AcceptedSubmission.findById(req.user.votedFor)
+                const oldSub = await FutureSubmission.findById(req.user.votedFor)
                 oldSub.votes--
                 await oldSub.save()
             }
             
             req.user.votedFor = id
-            const sub = await AcceptedSubmission.findById(id)
+            const sub = await FutureSubmission.findById(id)
             sub.votes++
 
             await req.user.save()
