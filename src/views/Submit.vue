@@ -47,26 +47,30 @@ export default {
         return
       }
 
+      this.$emit('toogleLoad')
       //removes the domain from the link
       const query = this.youtubeLink.replace(reg,'')
       const queryData = qs.parse(query)
       const videoId = queryData.v
 
-      axios.post('/api/submit/',{videoId}).catch((e) => {
-        Swal.fire({
-          title:e.response.data,
-          icon:'error',
-          confirmButtonText:"אוקי",
-        })
-      }).then((r) => {
-        if(!r) return;
+      try{
+        await axios.post('/api/submit/',{videoId})
         Swal.fire({
           title:'תודה על ההצעה',
           text:'!אנחנו נסתכל על ההעצה שלך ואם נחליט שהיא מתאימה אנחנו נוסיף אותה',
           confirmButtonText:'!אוקי תודה',
           icon:'success'
         })
-      })
+      }
+      catch(e){
+        Swal.fire({
+          title:e.response.data,
+          icon:'error',
+          confirmButtonText:"אוקי",
+        })
+      }
+
+      this.$emit('toogleLoad')
     },
     updateValue(e){
       this.youtubeLink = e

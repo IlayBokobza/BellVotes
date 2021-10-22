@@ -15,6 +15,7 @@ app.use(cookieParser());
 //setup routes
 app.use('/api/submit',require('./routes/submissions'))
 app.use('/api/auth',require('./routes/auth'))
+app.use('/api/storage',require('./routes/storage'))
 
 //Start cycle
 Cycle.start()

@@ -33,9 +33,8 @@ export default {
         console.log(e.response)
         Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})
       })
-      .then(({data}) => {
+      .then(() => {
         this.$store.commit('removeSong',s._id)
-        this.$store.commit('addSong',data)
         this.$emit('toogleLoad')
       })
     },
