@@ -1,14 +1,15 @@
 const fs = require('fs')
+const path = require('path')
 
 module.exports = class Storage{
+    static folder = path.resolve(__dirname,'../data')
+
     static updateSong(base64Data){
-        console.log(base64Data)
-        console.log(typeof base64Data)
-        // const data = Buffer.from(base64Data,'base64')
-        // fs.writeFileSync('../data/song.mp3',data)
+        const data = Buffer.from(base64Data,'base64')
+        fs.writeFileSync(`${this.folder}/song.mp3`,data)
     }
 
     static getSong(){
-        return fs.readFileSync('../data/song.mp3').toString('base64')
+        return fs.readFileSync(`${this.folder}/song.mp3`).toString('base64')
     }
 }

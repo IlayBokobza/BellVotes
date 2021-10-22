@@ -36,12 +36,12 @@ module.exports = class Cycle{
             Cycle.logProgress('Replacing submission')
             //gets and delete all future subs
             const fsubs = await FutureSubmission.find({})
-            // await FutureSubmission.deleteMany({})
-            // await Submission.deleteMany({})
+            await FutureSubmission.deleteMany({})
+            await Submission.deleteMany({})
             
             //gets all current subs and replaces with new ones
             const subs = await AcceptedSubmission.find({})
-            // await AcceptedSubmission.deleteMany({})
+            await AcceptedSubmission.deleteMany({})
             await AcceptedSubmission.insertMany(fsubs.map(i => {return {
                 title:i.title,
                 link:i.link,
@@ -54,6 +54,7 @@ module.exports = class Cycle{
             
             Cycle.logProgress('Choosing new bell')
             const topSub = Cycle.findTopSub(subs)
+            Cycle.logProgress('Updating song')
             Storage.updateSong(topSub.songData)
         }
         catch(e){
