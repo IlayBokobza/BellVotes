@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const chalk = require('chalk')
 const path = require('path')
 const cookieParser = require("cookie-parser");
+const Cycle = require('./Services/cycle')
 
 require('dotenv').config()
 if(!process.env.MAX_SONGS) process.env.MAX_SONGS = 10;
@@ -14,11 +15,10 @@ app.use(cookieParser());
 //setup routes
 app.use('/api/submit',require('./routes/submissions'))
 app.use('/api/auth',require('./routes/auth'))
+app.use('/api/storage',require('./routes/storage'))
 
-//serves favicon
-app.get('/favicon',(req,res) => {
-    res.sendFile(path.resolve(__dirname,'./dist/favicon.png'))
-})
+//Start cycle
+Cycle.start()
 
 //hosts app
 app.use(express.static(path.resolve(__dirname,'./dist')))
