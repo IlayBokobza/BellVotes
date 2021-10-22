@@ -1,6 +1,6 @@
 <template>
   <div class="vote" id="votes" v-if="songs.length > 0">
-    <TopSongs v-if="songs.length >= 5" :songs="songs" />  
+    <TopSongs v-if="showGraph()" :songs="songs" />  
     <!-- songs table -->
     <div class="table">
       <div class="top">
@@ -69,6 +69,21 @@ export default {
           this.isPlaying = false
         })
       }
+    },
+    showGraph(){
+      //checks if there are 5 or more songs with more then 0 votes
+      let count = 0;
+      
+      for(let i = 0;i < this.songs.length;i++){
+        if(this.songs[i].votes > 0){
+          count++
+        }
+        if(count >= 5){
+          return true
+        }
+      }
+
+      return false
     }
   },
   computed:{
