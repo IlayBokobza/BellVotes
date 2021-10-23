@@ -1,27 +1,21 @@
-const schedule = require('node-schedule')
+const cron = require('node-cron')
 const chalk = require('chalk')
 const Storage = require('./storage')
 const {FutureSubmission,AcceptedSubmission} = require('../models/accpetedSubmissionModel')
 const Submission = require('../models/submissionsModel')
-const User = require('../models/userModel')
 
 module.exports = class Cycle{
 
     static logProgress(msg){
-        console.log(chalk.bgYellow.black(msg))
+        console.log(chalk.bgYellow.white(msg))
     }
 
     static start(){
-        const rule = new schedule.RecurrenceRule()
-        rule.second = 0
-        rule.hour = 0
-        rule.dayOfWeek = [0]
-    
-        schedule.scheduleJob(rule,Cycle.chooseBell)
+        cron.schedule('0 0 * * sun',Cycle.chooseBell)
     }
 
     static findTopSub(subs=[]){
-        let topSub = {votes:-1}
+        let topSub = {votes:0}
 
         subs.forEach(s => {
             if(s.votes > topSub.votes){
@@ -52,19 +46,9 @@ module.exports = class Cycle{
                 votes:0
             }}))
     
-            //updates user's data
-            await User.updateMany({},{votedFor:null,hasSubmited:null})
             
             Cycle.logProgress('Choosing new bell')
-            const topSub = Cycle.findTopSub(fsubs)
-
-            if(!topSub._id){
-                Cycle.logProgress('No top song')
-                return
-            }
-
-            //updates song in storage
-            Cycle.logProgress('Updating song')
+            const topSub = Cycle.findTopSub(subs)
             Storage.updateSong(topSub.songData)
         }
         catch(e){
