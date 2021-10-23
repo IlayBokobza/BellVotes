@@ -24,3 +24,4 @@ pnpm-debug.log*
 .env
 server/temp/*
 server/data
+package-lock.json
