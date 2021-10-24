@@ -7,7 +7,7 @@ const Submission = require('../models/submissionsModel')
 module.exports = class Cycle{
 
     static logProgress(msg){
-        console.log(chalk.bgYellow.white(msg))
+        console.log(chalk.bgYellow.black(msg))
     }
 
     static start(){
@@ -15,7 +15,7 @@ module.exports = class Cycle{
     }
 
     static findTopSub(subs=[]){
-        let topSub = {votes:0}
+        let topSub = {votes:-1}
 
         subs.forEach(s => {
             if(s.votes > topSub.votes){
@@ -50,6 +50,7 @@ module.exports = class Cycle{
             Cycle.logProgress('Choosing new bell')
             const topSub = Cycle.findTopSub(subs)
             Storage.updateSong(topSub.songData)
+            Cycle.logProgress('Done!')
         }
         catch(e){
             console.log(e)

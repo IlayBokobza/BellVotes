@@ -8,5 +8,7 @@ mongoose.connect('mongodb://localhost:27017',{
     dbName: "Pelech-Bell-Votes-App",
 }).then(() => {
     console.log(chalk.bgGreen("connected to mongoose"))
-    Cycle.chooseBell()
+    Cycle.chooseBell().then(() => {
+        process.exit()
+    })
 }).catch(err => console.log(chalk.bgRed(err)));
