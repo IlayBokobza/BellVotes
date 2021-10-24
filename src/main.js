@@ -51,7 +51,24 @@ const loadApp = () => {
       window.gapi.auth2.init()
       const ga = window.gapi.auth2.getAuthInstance()
       
+      let hasSignedIn = false
+
+      //times out after 10 seconds
+      setTimeout(() => {
+        console.log('aborting sign in after 10 seconds.')
+        if(!hasSignedIn){
+          Cookies.remove('token')
+          new Vue({
+            router,
+            store,
+            render: h => h(App)
+          }).$mount('#app')
+        }
+      },10000)
+
       ga.isSignedIn.listen(async (isSignedIn) => {
+        hasSignedIn = true
+        console.log('sign in state change')
 
         //when users signs in
         if(isSignedIn){
