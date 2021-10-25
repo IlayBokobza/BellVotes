@@ -50,6 +50,7 @@ module.exports = class Cycle{
             Cycle.logProgress('Choosing new bell')
             const topSub = Cycle.findTopSub(subs)
             Storage.updateSong(topSub.songData)
+            Storage.updateDate()
             Cycle.logProgress('Done!')
         }
         catch(e){

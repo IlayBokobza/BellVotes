@@ -6,4 +6,8 @@ router.get('/',(req,res) => {
     res.send(Storage.getSong())
 })
 
+router.get('/date',(req,res) => {
+    res.send(Storage.getDate())
+})
+
 module.exports = router
