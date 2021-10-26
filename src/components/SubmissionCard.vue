@@ -100,9 +100,13 @@ export default {
   }
 
   iframe{
-    width: 75%;
+    width: 60%;
     //19.68rem = 20px
     height: 19.68rem;
+
+    @media only screen and (max-width: 730px){
+      width: 75%;
+    }
     
     @media only screen and (max-width: 480px){
       height: 15rem;

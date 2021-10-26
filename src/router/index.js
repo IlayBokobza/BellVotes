@@ -8,6 +8,7 @@ import Vote from '../views/Vote.vue'
 import SubmitPage from '../views/Submit.vue'
 import Admin from '../views/Admin.vue'
 import Bans from '../views/Bans.vue'
+import NotFound404 from '../views/404.vue'
 
 
 Vue.use(VueRouter)
@@ -76,6 +77,11 @@ const routes = [
     name: 'bans',
     component: Bans,
     beforeEnter:onlyAdmin,
+  },
+  {
+    path: '*',
+    name: '404',
+    component: NotFound404,
   },
 ]
 
