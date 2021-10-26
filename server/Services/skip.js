@@ -1,4 +1,4 @@
-const Cycle = require('./Services/cycle')
+const Cycle = require('./cycle')
 const mongoose = require('mongoose')
 const chalk = require('chalk')
 

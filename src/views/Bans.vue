@@ -32,8 +32,10 @@ export default {
 .bans{
   .ban-card{
     background-color: var(--color2);
-    width: 35%;
-    font-size: 3rem;
+    min-width: 40vw;
+    width: calc(768px - 5vw);
+    max-width: 80vw;
+    font-size: clamp(2.1rem,2.5vw,3rem);
     margin: 0 auto;
     padding: 1rem 3rem;
     border-radius: 10px;

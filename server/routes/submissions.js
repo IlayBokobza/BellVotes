@@ -1,4 +1,4 @@
-const Auth = require('../Services/auth')
+const Auth = require('../services/auth')
 const controller = require('../controllers/submissionsController')
 const router = require('express').Router()
 

@@ -92,8 +92,14 @@ export default {
 </script>
 
 <style lang="scss">
-  #top-songs-graph svg{
-    display: block;
-    margin: 0 auto;
+#top-songs-graph{
+  @media only screen and (max-width: 1100px){
+    display: none;
   }
+}
+
+#top-songs-graph svg{
+  display: block;
+  margin: 0 auto;
+}
 </style>

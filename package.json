@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "dev": "nodemon server/index",
-    "start": "node server/index"
+    "start": "node server/index",
+    "skip-cycle":"node server/services/skip"
   },
   "dependencies": {
     "@types/node-cron": "^3.0.0",

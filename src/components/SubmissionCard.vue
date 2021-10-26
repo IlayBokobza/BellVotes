@@ -1,8 +1,8 @@
 <template>
   <div class="submission-card">
     <!-- youtube embed -->
-    <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${videoId}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-    <div>
+    <iframe :src="`https://www.youtube.com/embed/${videoId}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+    <div class="actions">
       <Input @newValue="updateValue" text="זמן צילצול (לדוגמה 02:42)"></Input>
       <Input @newValue="updateNameValue" :startingText="videoName" text="שם השיר"></Input>
       <div class="submission-card__btn-container">
@@ -83,6 +83,14 @@ export default {
   margin: 0 auto;
   box-shadow: 13px 13px 14px rgba(rgb(32, 32, 32),.5);
 
+  @media only screen and (max-width: 1050px){
+    width: 75%;
+  }
+
+  @media only screen and (max-width: 570px){
+    width: 90%;
+  }
+
   & > *{
     margin-bottom: 2rem;
   }
@@ -91,16 +99,38 @@ export default {
     background-color: var(--color1);
   }
 
+  iframe{
+    width: 75%;
+    //19.68rem = 20px
+    height: 19.68rem;
+    
+    @media only screen and (max-width: 480px){
+      height: 15rem;
+    }
+  }
+
   input{
     --bg:var(--color2);
     --focus:var(--color3);
   }
 
+  .actions{
+    width: 75%;
+  }
+
   &__btn-container{
     display: flex;
     flex-direction: row-reverse;
-    width: 100%;
     justify-content: space-between;
+    width: 100%;
+
+    @media only screen and (max-width: 730px){
+      flex-direction: column;
+
+      .btn:not(:last-child){
+        margin-bottom: 1rem;
+      }
+    }
   }
 
   &__btn{

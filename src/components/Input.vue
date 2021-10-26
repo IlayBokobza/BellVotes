@@ -30,8 +30,10 @@ export default Vue.extend({
 <style lang="scss">
 .input{
     padding: 10px;
+    padding-bottom:0 ;
     margin-bottom: 1rem;
     position: relative;
+    width: 100%;
 
     --bg:var(--color1);
     --focus:var(--color2);
@@ -43,12 +45,14 @@ export default Vue.extend({
     input{
         background-color: var(--bg);
         border: 0;
-        border-bottom: .4rem solid #fff;
+        width: 100%;
         outline: none;
         padding: .1rem;
-        width: 30rem;
         font-size: 1.6rem;
         text-align: right;
+        padding-top: 10px;
+
+        border-bottom: .4rem solid #fff;
 
         &:focus{
             border-bottom: .4rem solid var(--focus);

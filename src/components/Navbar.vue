@@ -41,6 +41,11 @@ export default {
 
 <style lang="scss">
 .navbar{
+
+    @media only screen and (max-width: 500px){
+        font-size: 1.5rem;
+    }
+
     width: 100%;
     background-color: #000;
     display: flex;
@@ -66,8 +71,10 @@ export default {
         }
 
         img{
-            width: 50px;
-            height: 50px;
+            //50px
+            width: 3.125rem;
+            height: 3.125rem;
+
             border-radius:50% ;
             margin-left: 1rem;
         }
@@ -75,6 +82,14 @@ export default {
     
     a{
         border-bottom: 3px solid;
+        @media only screen and (max-width: 360px){
+            display: block;
+            width: fit-content;
+
+            &:not(:last-of-type){
+                margin-bottom: .5rem;
+            }
+        }
     }
 
     .logout{

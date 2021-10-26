@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const chalk = require('chalk')
 const path = require('path')
 const cookieParser = require("cookie-parser");
-const Cycle = require('./Services/cycle')
+const Cycle = require('./services/cycle')
 
 require('dotenv').config()
 if(!process.env.MAX_SONGS) process.env.MAX_SONGS = 10;

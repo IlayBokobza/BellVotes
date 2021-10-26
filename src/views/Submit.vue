@@ -7,7 +7,7 @@
       <li>השיר חייב להיות ראוי</li>
       <li>אם אתה עובר על אחד או יותר מהחוקים האלה אתה תוכל תחסם מלשלוח עוד הצעות</li>
     </ul>
-    <Input @newValue="updateValue" text="קישור לשיר ביוטיוב"></Input>
+    <div class="input-container"><Input @newValue="updateValue" text="קישור לשיר ביוטיוב"></Input></div>
     <button class="btn">שלח</button>
   </form>
 </template>
@@ -86,13 +86,39 @@ export default {
   align-items: center;
   flex-direction: column;
 
+  .input-container{
+    width: 50%;
+
+    @media only screen and (max-width: 520px){
+        width: 75%;
+    }
+  }
+
   h2{
     font-size: 4rem;
+
+    @media only screen and (max-width: 580px){
+      margin-bottom: 1rem;
+    }
   }
 
   ul{
     font-size: 2rem;
     margin-bottom: 2rem;
+
+    @media only screen and (max-width: 580px){
+      list-style: none;
+      text-align: center;
+      
+      li:not(:last-child){
+        margin-bottom: .6rem;
+      }
+
+      li:last-child{
+        padding: 0 3rem;
+      }
+    }
+
   }
 }
 </style>

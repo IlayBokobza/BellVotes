@@ -4,7 +4,7 @@ const {FutureSubmission, AcceptedSubmission} = require('../models/accpetedSubmis
 const User = require('../models/userModel')
 const Ban = require('../models/banRecord')
 const dayjs = require('dayjs')
-const ProccessVideo = require('../Services/proccessVideo')
+const ProccessVideo = require('../services/proccessVideo')
 const chalk = require('chalk')
 
 class submissionsController {
@@ -164,19 +164,21 @@ class submissionsController {
     static async vote(req,res){
         try {
             const id = req.params.id
-            if(req.user.votedFor == id){
-                res.status(400).send('Already voted for that song.')
-                return
-            }
             
             if(req.user.votedFor){
-                const oldSub = await FutureSubmission.findById(req.user.votedFor)
+
+                if(req.user.votedFor == id){
+                    res.status(400).send('Already voted for that song.')
+                    return
+                }
+
+                const oldSub = await AcceptedSubmission.findById(req.user.votedFor)
                 oldSub.votes--
                 await oldSub.save()
             }
-            
+
             req.user.votedFor = id
-            const sub = await FutureSubmission.findById(id)
+            const sub = await AcceptedSubmission.findById(id)
             sub.votes++
 
             await req.user.save()

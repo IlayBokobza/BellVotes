@@ -4,15 +4,15 @@
     <!-- songs table -->
     <div class="table">
       <div class="top">
-        <span>שם</span>
-        <span>הומלץ על ידי</span>
+        <span>שם השיר</span>
+        <span class="owner-name">הומלץ על ידי</span>
         <span>הצבעות</span>
         <span>השמעה</span>
         <span>הצבעה</span>
       </div>
       <div class="row" v-for="s in songs" :id="s._id" :key="s._id">
-        <span>{{s.title}}</span>
-        <span>{{s.ownerName}}</span>
+        <span class="song-title">{{s.title}}</span>
+        <span class="owner-name">{{s.ownerName}}</span>
         <span>{{s.votes}}</span>
         <span class="material-icons play" v-if="isPlaying && s._id == playingSoundId" @click="playsound(s)">pause</span>
         <span class="material-icons play" v-else @click="playsound(s)">volume_up</span>
@@ -99,23 +99,42 @@ export default {
 
 <style lang="scss">
 .table{
-  margin: 2rem 0 10rem;
+  margin: 2rem 0 5rem;
   user-select: none;
 
   .top,.row{
-    width: 100%;
     display: flex;
     justify-content: space-around;
     font-size: 2rem;
     width: 75%;
     margin: 0 auto;
     padding: .2rem;
+
+    @media only screen and (max-width: 980px){
+      width: 90%;
+    }
+
+    @media only screen and (max-width: 800px){
+      width: 95%;
+    }
     
     span{
       width: 25%;
       text-align: center;
       display: grid;
       place-items: center;
+    }
+
+    .owner-name{
+      @media only screen and (max-width: 650px){
+        display: none;
+      }
+    }
+
+    .song-title{
+      @media only screen and (max-width: 480px){
+        font-size: 1.5rem;
+      }
     }
   }
 
