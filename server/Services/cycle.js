@@ -3,6 +3,7 @@ const chalk = require('chalk')
 const Storage = require('./storage')
 const {FutureSubmission,AcceptedSubmission} = require('../models/accpetedSubmissionModel')
 const Submission = require('../models/submissionsModel')
+const User = require('../models/userModel')
 
 module.exports = class Cycle{
 
@@ -45,6 +46,12 @@ module.exports = class Cycle{
                 songData:i.songData,
                 votes:0
             }}))
+
+            //resets users' vote and submissions
+            await User.updateMany({},{
+                hasSubmited:false,
+                votedFor:null,
+            })
     
             
             Cycle.logProgress('Choosing new bell')
