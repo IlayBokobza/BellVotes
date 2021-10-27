@@ -35,7 +35,7 @@ export default {
   },
   methods:{
     async send(){
-      const reg = /https:\/\/(www.)?youtube.com\/watch\?/
+      const reg = /https:\/\/((www|m).)?youtube.com\/watch\?/
 
       //tests if is a youtube link
       if(!reg.test(this.youtubeLink)){
