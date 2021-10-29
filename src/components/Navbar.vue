@@ -65,6 +65,7 @@ export default {
         position: relative;
         align-items: center;
         user-select: none;
+        max-width: 9.75rem;
 
         &:hover .logout{
             opacity: 1;
