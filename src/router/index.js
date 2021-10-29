@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cookies from 'js-cookie'
-import axios from 'axios'
+import Store from '../store/index'
 
 import Login from '../views/Login.vue'
 import Vote from '../views/Vote.vue'
@@ -25,18 +25,11 @@ const onlyLogin = (to,from,next) => {
 
 const onlyAdmin = async (to,from,next) => {
   //checks if uses in logged in
-  if(!Cookies.get('token')){
-    console.log('user not logged in redirecting')
+  if(!Cookies.get('token') || !Store.state.isAdmin){
+    console.log('user not allowed')
     next('/')
     return
   }
-
-  await axios.get('/api/auth/isAdmin').catch(() => {
-    console.log('user not admin')
-    next('/vote')
-    return
-  })
-  
   next()
 }
 
