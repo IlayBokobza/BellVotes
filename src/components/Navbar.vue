@@ -65,7 +65,10 @@ export default {
         position: relative;
         align-items: center;
         user-select: none;
-        max-width: 9.75rem;
+        
+        @media only screen and (max-width: 470px){
+            max-width: 9.75rem;
+        }
 
         &:hover .logout{
             opacity: 1;
@@ -86,6 +89,7 @@ export default {
         @media only screen and (max-width: 360px){
             display: block;
             width: fit-content;
+
 
             &:not(:last-of-type){
                 margin-bottom: .5rem;
