@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-      <h1 class="title">!הצביעו לצילצול</h1>
+      <h1 class="title">!הצילצול הגואל</h1>
       <h2 class="subtitle mb">.היכנסו עם המייל של פלך כדי להצביע</h2>
       <div id="g-login"></div>
   </div>

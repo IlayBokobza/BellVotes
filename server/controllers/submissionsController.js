@@ -50,7 +50,7 @@ class submissionsController {
 
             res.send()
         } catch (e) {
-            console.log(e)
+            console.log(e.response)
             res.status(500).send(e?.response?.data)
         }
     }
