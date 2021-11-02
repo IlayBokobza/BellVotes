@@ -19,6 +19,7 @@ module.exports = class Auth{
             const payload = ticket.getPayload()
             
             if(!payload.hd || payload.hd != "pelech.ort.org.il"){
+                console.log('A non pelech user has made a request!')
                 return [false,payload]
             }
 
@@ -35,7 +36,6 @@ module.exports = class Auth{
             const [allowUser,payload] = await Auth.isAuth(req.cookies.token)
             
             if(!allowUser){
-                console.log('A non pelech user has made a request!')
                 res.status(401).send({ error: 'Please authenticate with pelech' })
                 return
             }
@@ -60,7 +60,6 @@ module.exports = class Auth{
             const [allowUser,payload] = await Auth.isAuth(req.cookies.token)
             
             if(!allowUser){
-                console.log('A non pelech user has made a request!')
                 res.status(401).send({ error: 'Please authenticate with pelech' })
                 return
             }
@@ -76,7 +75,6 @@ module.exports = class Auth{
             const isAdmin = admins.findIndex((i) => i == payload.email) != -1
     
             if(!isAdmin){
-                console.log(`A non admin with the email of ${payload.email} has tried to commit an admin action.`)
                 res.status(403).send()
                 return
             }

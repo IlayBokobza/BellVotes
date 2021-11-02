@@ -7,10 +7,10 @@
     "build": "vue-cli-service build",
     "dev": "nodemon server/index",
     "start": "node server/index",
-    "skip-cycle":"node server/services/skip"
+    "skip-cycle": "node server/scripts/skip",
+    "move-future": "node server/scripts/moveFuture.js"
   },
   "dependencies": {
-    "@types/node-cron": "^3.0.0",
     "axios": "^0.21.4",
     "chalk": "^4.1.2",
     "cookie-parser": "^1.4.5",
@@ -41,6 +41,7 @@
     "@types/fluent-ffmpeg": "^2.1.18",
     "@types/js-cookie": "^2.2.7",
     "@types/mongoose": "^5.11.97",
+    "@types/node-cron": "^3.0.0",
     "@types/qs": "^6.9.7",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
