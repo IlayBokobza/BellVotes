@@ -13,7 +13,7 @@ module.exports = class ProccessVideo {
 
     constructor(id, starting = "") {
         this.id = id
-        this.startingTime = starting
+        this.startingTime = starting.trim()
 
         //get seconds from time
         let [minutes, seconds] = starting.split(':')
