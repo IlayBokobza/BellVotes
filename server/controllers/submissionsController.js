@@ -173,8 +173,11 @@ class submissionsController {
                 }
 
                 const oldSub = await AcceptedSubmission.findById(req.user.votedFor)
-                oldSub.votes--
-                await oldSub.save()
+
+                if(oldSub){
+                    oldSub.votes--
+                    await oldSub.save()
+                }
             }
 
             req.user.votedFor = id
