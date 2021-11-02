@@ -89,7 +89,7 @@ module.exports = class ProccessVideo {
                 let startingTimestamp;
 
                 p.save(filepath)
-                    .setStartTime(`00:${this.startingTime}`).setDuration('10')
+                    .setStartTime(`00:${this.startingTime}`).setDuration(10)
                     .on('error', (e) => {
                         reject(e)
                         console.log(e)
