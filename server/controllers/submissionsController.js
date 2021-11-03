@@ -32,10 +32,10 @@ class submissionsController {
             // }
 
             //check if title has hebrew in it
-            if (!/(ק|ץ|ף|ר|א|ט|ו|ו|ן|ם|פ|ש|ג|ג|כ|ע|י|ח|ל|ך|ז|ס|ב|ה|נ|מ|צ|ד|ת)/.test(title)) {
-                res.status(400).send('השיר לא בעברית')
-                return
-            }
+            // if (!/(ק|ץ|ף|ר|א|ט|ו|ו|ן|ם|פ|ש|ג|ג|כ|ע|י|ח|ל|ך|ז|ס|ב|ה|נ|מ|צ|ד|ת)/.test(title)) {
+            //     res.status(400).send('השיר לא בעברית')
+            //     return
+            // }
 
             const sub = new Submission({
                 title,
