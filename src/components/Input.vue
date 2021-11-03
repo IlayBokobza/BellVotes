@@ -66,6 +66,8 @@ export default Vue.extend({
         width: 200px;
         text-align: right;
         right: 2%;
+        user-select: none;
+        pointer-events: none;
     }
 
     input:not(:placeholder-shown) + label{

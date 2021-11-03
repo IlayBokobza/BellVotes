@@ -36,9 +36,21 @@ export default {
   methods:{
     async send(){
       const reg = /https:\/\/((www|m).)?youtube.com\/watch\?/
+      const bReg = /https:\/\/youtu\.be\//
 
       //tests if is a youtube link
-      if(!reg.test(this.youtubeLink)){
+      let videoId;
+
+      if(reg.test(this.youtubeLink)){
+        //removes the domain from the link
+        const query = this.youtubeLink.replace(reg,'')
+        const queryData = qs.parse(query)
+        videoId = queryData.v
+      }
+      else if(bReg.test(this.youtubeLink)){
+        videoId = this.youtubeLink.replace(bReg,'')
+      }
+      else{
         Swal.fire({
           title:'קישור לא תקין',
           icon:'error',
@@ -48,10 +60,6 @@ export default {
       }
 
       this.$emit('toogleLoad')
-      //removes the domain from the link
-      const query = this.youtubeLink.replace(reg,'')
-      const queryData = qs.parse(query)
-      const videoId = queryData.v
 
       try{
         await axios.post('/api/submit/',{videoId})
