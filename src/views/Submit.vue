@@ -37,6 +37,7 @@ export default {
     async send(){
       const reg = /https:\/\/((www|m).)?youtube.com\/watch\?/
       const bReg = /https:\/\/youtu\.be\//
+      this.youtubeLink = this.youtubeLink.trim()
 
       //tests if is a youtube link
       let videoId;
