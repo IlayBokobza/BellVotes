@@ -1,10 +1,11 @@
 const ytdl = require('ytdl-core')
-const ffmpeg = require('fluent-ffmpeg')
+// const ffmpeg = require('fluent-ffmpeg')
 const fs = require('fs')
 const chalk = require('chalk')
 const axios = require('axios')
 const path = require('path')
-ffmpeg.setFfmpegPath(process.env.FFMPEG_PATH)
+const {exec} = require('child_process')
+// ffmpeg.setFfmpegPath(process.env.FFMPEG_PATH)
 
 module.exports = class ProccessVideo {
     id;
@@ -62,17 +63,9 @@ module.exports = class ProccessVideo {
         return timeInSeconds - 10 > this.startingTimeInSeconds
     }
 
-    static checkForTempFolder() {
-        if (!fs.existsSync('../temp')) {
-            fs.mkdirSync('../temp')
-        }
-    }
-
     async getBellFromVideo() {
         return new Promise(async(resolve, reject) => {
             try {
-                ProccessVideo.logProgress('Getting song')
-                const stream = ytdl(`https://www.youtube.com/watch?v=${this.id}`,{filter:'audioonly'});
                 const isTimeStampValid = await this.checkVideoLength()
 
                 if (!isTimeStampValid) {
@@ -81,38 +74,32 @@ module.exports = class ProccessVideo {
                     return
                 }
 
-                const p = ffmpeg({ source: stream })
-                ProccessVideo.checkForTempFolder()
                 const filename = Math.random().toString(36).substring(2, 15)
+                const uncutFilepath = path.resolve(__dirname, `../temp/${filename}.mp4`)
                 const filepath = path.resolve(__dirname, `../temp/${filename}.mp3`)
-                let isDone = false
-                let startingTimestamp;
-
-                p.save(filepath)
-                    .setStartTime(`00:${this.startingTime}`).setDuration(10)
-                    .on('error', (e) => {
-                        reject(e)
-                        console.log(e)
-                    })
-                    .on('progress', (a, b) => {
-                        console.log('loading...')
-                    })
-                    .on('start', () => {
-                        ProccessVideo.logProgress('Converting and cutting song')
-                        startingTimestamp = Date.now()
-                    })
-                    .on('end', () => {
-                        if (isDone) return
-                        isDone = true
+                
+                // const p = ffmpeg({ source: stream })
+                // let isDone = false
+                ProccessVideo.logProgress('Downloading song')
+                let startingTimestamp = Date.now();
+                
+                ytdl(`https://www.youtube.com/watch?v=${this.id}`,{filter:'audioonly'})
+                .pipe(fs.createWriteStream(uncutFilepath)).on('finish',() => {
+                    console.log(chalk.bgBlue(`Finished downloading took ${(Date.now()-startingTimestamp)/1000} seconds`))
+                    exec(`${process.env.FFMPEG_PATH} -ss 00:02:00 -i ${uncutFilepath} -ss 00:00:10 -t 00:00:10 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error, stdout, stderr) => {
+                        if (error) {
+                            console.log(`error: ${error.message}`);
+                            reject(error.message)
+                            return;
+                        }
 
                         const songData = fs.readFileSync(filepath).toString('base64')
+                        fs.rmSync(uncutFilepath)
                         fs.rmSync(filepath)
-
-                        ProccessVideo.logProgress('Done!')
-                        ProccessVideo.logProgress(`Took ${(Date.now() - startingTimestamp)/1000} seconds.`)
-
+                        
                         resolve(songData)
-                    }).run()
+                    });
+                })
             } catch (error) {
                 reject(error)
             }
