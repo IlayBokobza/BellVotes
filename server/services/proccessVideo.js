@@ -1,11 +1,9 @@
 const ytdl = require('ytdl-core')
-// const ffmpeg = require('fluent-ffmpeg')
 const fs = require('fs')
 const chalk = require('chalk')
 const axios = require('axios')
 const path = require('path')
 const {exec} = require('child_process')
-// ffmpeg.setFfmpegPath(process.env.FFMPEG_PATH)
 
 module.exports = class ProccessVideo {
     id;
@@ -57,9 +55,7 @@ module.exports = class ProccessVideo {
             var seconds = 0
         }
 
-        // console.log({ hours, minutes, seconds })
         const timeInSeconds = hours * 60 * 60 + minutes * 60 + seconds
-
         return timeInSeconds - 10 > this.startingTimeInSeconds
     }
 
@@ -78,8 +74,6 @@ module.exports = class ProccessVideo {
                 const uncutFilepath = path.resolve(__dirname, `../temp/${filename}.mp4`)
                 const filepath = path.resolve(__dirname, `../temp/${filename}.mp3`)
                 
-                // const p = ffmpeg({ source: stream })
-                // let isDone = false
                 ProccessVideo.logProgress('Downloading song')
                 let startingTimestamp = Date.now();
                 
@@ -96,7 +90,7 @@ module.exports = class ProccessVideo {
                         const songData = fs.readFileSync(filepath).toString('base64')
                         fs.rmSync(uncutFilepath)
                         fs.rmSync(filepath)
-                        
+
                         resolve(songData)
                     });
                 })

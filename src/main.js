@@ -55,8 +55,8 @@ const loadApp = () => {
 
       //times out after 10 seconds
       const timer = setTimeout(() => {
-        console.log('aborting sign in after 10 seconds.')
         if(!hasSignedIn){
+          console.log('aborting sign in after 10 seconds.')
           Cookies.remove('token')
           new Vue({
             router,
