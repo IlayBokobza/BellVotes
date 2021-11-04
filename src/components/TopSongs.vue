@@ -35,7 +35,6 @@ export default {
     },
     //draw graph
     mounted(){
-      console.log(this.topSongs)
       const graph = new Graph("#graph",this.topSongs,'votes',true)
       graph.draw()
     }
