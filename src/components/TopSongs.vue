@@ -1,9 +1,9 @@
 <template>
-  <div id="top-songs-graph"></div>
+  <div id="graph"></div>
 </template>
 
 <script>
-import * as d3 from "d3";
+import Graph from './graph'
 export default {
     props:['songs'],
     computed:{
@@ -35,71 +35,46 @@ export default {
     },
     //draw graph
     mounted(){
-      //https://github.com/kriscfoster/d3-barchart/blob/master/index.js
-      const data = this.topSongs.map((s) => {return{name:s.title,score:s.votes}})
-      const topVote = Math.max(...this.topSongs.map((s) => s.votes))
-
-      const width = document.querySelector('body').clientWidth;
-      const height = 800;
-      const margin = { top: 50, bottom: 50, left: 50, right: 50 };
-
-      const svg = d3.select('#top-songs-graph')
-        .append('svg')
-        .attr('width', width - margin.left - margin.right)
-        .attr('height', height - margin.top - margin.bottom)
-        .attr("viewBox", [0, 0, width, height]);
-
-      const x = d3.scaleBand()
-        .domain(d3.range(data.length))
-        .range([margin.left, width - margin.right])
-        .padding(0.1)
-
-      const y = d3.scaleLinear()
-        .domain([0, topVote])
-        .range([height - margin.bottom, margin.top])
-
-        svg
-          .append("g")
-          .attr("fill", '#FAC62A')
-          .selectAll("rect")
-          .data(data.sort((a, b) => d3.descending(a.score, b.score)))
-          .join("rect")
-            .attr("x", (d, i) => x(i))
-            .attr("y", d => y(d.score))
-            .attr('title', (d) => d.score)
-            .attr("class", "rect")
-            .attr("height", d => y(0) - y(d.score))
-            .attr("width", x.bandwidth());
-
-        // function yAxis(g) {
-        //   g.attr("transform", `translate(${margin.left}, 0)`)
-        //     .call(d3.axisLeft(y).ticks(null, data.format))
-        //     .attr("font-size", '20px')
-
-        // }
-
-        function xAxis(g) {
-          g.attr("transform", `translate(0,${height - margin.bottom})`)
-            .call(d3.axisBottom(x).tickFormat(i => data[i].name))
-            .attr("font-size", '20px')
-        }
-
-        svg.append("g").call(xAxis);
-        // svg.append("g").call(yAxis);
-        svg.node();
-      }
+      console.log(this.topSongs)
+      const graph = new Graph("#graph",this.topSongs,'votes',true)
+      graph.draw()
+    }
 }
 </script>
 
 <style lang="scss">
-#top-songs-graph{
-  @media only screen and (max-width: 1100px){
-    display: none;
-  }
-}
+#graph,.graph{
+    width: 75%;
+    margin: 0 auto;
+    min-height: 30rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
 
-#top-songs-graph svg{
-  display: block;
-  margin: 0 auto;
+    @media only screen and (max-width: 980px){
+      width: 95%;
+    }
+
+    @media only screen and (max-width: 730px){
+      display: none;
+    }
+
+    &__col-container{
+        margin: 10px;
+        flex: 1;
+    }
+    
+    &__col{
+        min-height: 50px;
+        background-color: var(--color2);
+        border-radius: 10px;
+    }
+
+    &__text{
+        text-align: center;
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
 }
 </style>
