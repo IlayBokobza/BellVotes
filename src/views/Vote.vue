@@ -139,7 +139,7 @@ export default {
   }
 
   .top{
-    background-color: var(--color5);
+    background-color: var(--color3);
   }
 
   .row{
