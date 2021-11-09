@@ -112,9 +112,11 @@ class submissionsController {
                 songData,
             }
 
+            ProccessVideo.logProgress('Saving submission')
             const accpetedSub = new FutureSubmission(subData)
             await accpetedSub.save()
             await sub.delete()
+            ProccessVideo.logProgress('Done')
 
             res.send(accpetedSub)
         } catch (e) {

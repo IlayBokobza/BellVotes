@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar/>
-    <router-view @toogleLoad="loading = !loading" />
+    <router-view @toogleLoad="toogle" />
     <Footer/>
     <Loading v-if="(!$store.state.email && token) || loading"/>
   </div>
@@ -26,6 +26,12 @@ export default {
   },
   beforeCreate(){
     this.token = Cookies.get('token')
+  },
+  methods:{
+    toogle(){
+      this.loading = !this.loading
+      document.body.style.overflow = this.loading ? 'hidden' : 'auto'
+    }
   }
 }
 </script>
