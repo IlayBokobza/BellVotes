@@ -7,7 +7,7 @@ const dayjs = require('dayjs')
 const {exec} = require('child_process')
 const downloadSongPath = require('path').resolve(__dirname,'../scripts/downloadSong')
 
-class submissionsController {
+class SubmissionsController {
     static async post(req, res) {
         try {
             //if banned
@@ -169,4 +169,4 @@ class submissionsController {
     }
 }
 
-module.exports = submissionsController
+module.exports = SubmissionsController
