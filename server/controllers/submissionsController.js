@@ -1,11 +1,11 @@
 const axios = require('axios').default
 const Submission = require('../models/submissionsModel')
-const {FutureSubmission, AcceptedSubmission} = require('../models/accpetedSubmissionModel')
+const {AcceptedSubmission} = require('../models/accpetedSubmissionModel')
 const User = require('../models/userModel')
 const Ban = require('../models/banRecord')
 const dayjs = require('dayjs')
-const ProccessVideo = require('../services/proccessVideo')
-const chalk = require('chalk')
+const {exec} = require('child_process')
+const downloadSongPath = require('path').resolve(__dirname,'../scripts/downloadSong')
 
 class submissionsController {
     static async post(req, res) {
@@ -23,19 +23,7 @@ class submissionsController {
             }
 
             const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${req.body.videoId}&key=${process.env.YOUTUBE_API}`)
-            const { title /*,categoryId*/ } = data.items[0].snippet
-
-            // //checks if video is a music one
-            // if(categoryId != "10"){
-            //     res.status(400).send('הסרטון הוא לא שיר')
-            //     return
-            // }
-
-            //check if title has hebrew in it
-            // if (!/(ק|ץ|ף|ר|א|ט|ו|ו|ן|ם|פ|ש|ג|ג|כ|ע|י|ח|ל|ך|ז|ס|ב|ה|נ|מ|צ|ד|ת)/.test(title)) {
-            //     res.status(400).send('השיר לא בעברית')
-            //     return
-            // }
+            const { title } = data.items[0].snippet
 
             const sub = new Submission({
                 title,
@@ -89,36 +77,11 @@ class submissionsController {
 
     static async put(req, res) {
         try {
-            // if (await FutureSubmission.count() >= parseInt(process.env.MAX_SONGS)) {
-            //     res.status(400).send(`כבר אושרו מספר השירים המקסימלי של ${parseInt(process.env.MAX_SONGS)} שירים`)
-            //     return
-            // }
+            exec(`node ${downloadSongPath} ${req.params.id} "${req.body.name}" ${req.body.time}`,(error, stdout, stderr) => {
+                console.log(error, stdout, stderr)
+            })
 
-            const id = req.params.id
-            const sub = await Submission.findById(id)
-            const owner = await User.findById(sub.owner)
-
-            ProccessVideo.logProgress(`Song "${req.body.name}" with the id of ${sub._id} has been accpeted.`)
-
-            const song = new ProccessVideo(sub.link, req.body.time)
-            const songData = await song.getBellFromVideo()
-
-            const subData = {
-                title: req.body.name,
-                link: sub.link,
-                owner: sub.owner,
-                // ownerName: owner?.name ?? "Error no owner found found" ,
-                ownerName: owner.name ,
-                songData,
-            }
-
-            ProccessVideo.logProgress('Saving submission')
-            const accpetedSub = new FutureSubmission(subData)
-            await accpetedSub.save()
-            await sub.delete()
-            ProccessVideo.logProgress('Done')
-
-            res.send(accpetedSub)
+            res.send()
         } catch (e) {
             console.log(e)
             res.status(500).send(e)

@@ -59,7 +59,7 @@ module.exports = class ProccessVideo {
         return timeInSeconds - 10 > this.startingTimeInSeconds
     }
 
-    async getBellFromVideo() {
+    async downloadBell() {
         return new Promise(async(resolve, reject) => {
             try {
                 const isTimeStampValid = await this.checkVideoLength()

@@ -116,6 +116,11 @@ export default {
   input{
     --bg:var(--color2);
     --focus:var(--color3);
+    border-bottom: .4rem solid var(--color5);
+  }
+
+  label,input{
+    color: var(--color5) !important;
   }
 
   .actions{
