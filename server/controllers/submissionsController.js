@@ -5,6 +5,7 @@ const User = require('../models/userModel')
 const Ban = require('../models/banRecord')
 const dayjs = require('dayjs')
 const {exec} = require('child_process')
+const ProccessVideo = require('../services/proccessVideo')
 const downloadSongPath = require('path').resolve(__dirname,'../scripts/downloadSong')
 
 class SubmissionsController {
@@ -77,6 +78,8 @@ class SubmissionsController {
 
     static async put(req, res) {
         try {
+            ProccessVideo.logProgress(`Song "${req.body.name}" with the id of ${req.params.id} has been accpeted.`)
+
             exec(`node ${downloadSongPath} ${req.params.id} "${req.body.name}" ${req.body.time}`,(error, stdout, stderr) => {
                 console.log(error, stdout, stderr)
             })

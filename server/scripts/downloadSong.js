@@ -17,7 +17,6 @@ mongoose.connect(process.env.MONGO,{
         const sub = await Submission.findById(id)
         const owner = await User.findById(sub.owner)
         
-        ProccessVideo.logProgress(`Song "${name}" with the id of ${sub._id} has been accpeted.`)
         
         const song = new ProccessVideo(sub.link, time)
         const songData = await song.downloadBell()

@@ -72,7 +72,7 @@ module.exports = class ProccessVideo {
 
                 const filename = Math.random().toString(36).substring(2, 15)
                 const uncutFilepath = path.resolve(__dirname, `../temp/${filename}.mp4`)
-                const filepath = path.resolve(__dirname, `../temp/${filename}.mp3`)
+                const filepath = path.resolve(__dirname, `../temp/${filename}.output.mp3`)
                 
                 ProccessVideo.logProgress('Downloading song')
                 let startingTimestamp = Date.now();
@@ -80,7 +80,9 @@ module.exports = class ProccessVideo {
                 ytdl(`https://www.youtube.com/watch?v=${this.id}`,{filter:'audioonly'})
                 .pipe(fs.createWriteStream(uncutFilepath)).on('finish',() => {
                     console.log(chalk.bgBlue(`Finished downloading took ${(Date.now()-startingTimestamp)/1000} seconds`))
-                    exec(`${process.env.FFMPEG_PATH} -ss 00:02:00 -i ${uncutFilepath} -ss 00:00:10 -t 00:00:10 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error, stdout, stderr) => {
+
+                    //calling ffmpeg
+                    exec(`${process.env.FFMPEG_PATH} -ss 00:${this.startingTime} -i ${uncutFilepath} -filter:a loudnorm -filter:a "volume=10dB" -ss 00:00:10 -t 00:00:10 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error, stdout, stderr) => {
                         if (error) {
                             console.log(`error: ${error.message}`);
                             reject(error.message)
