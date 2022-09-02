@@ -33,6 +33,7 @@ module.exports = class Auth{
 
     static async normalAuth (req,res,next){
         try{
+            //checks if user is valid
             const [allowUser,payload] = await Auth.isAuth(req.cookies.token)
             
             if(!allowUser){
@@ -40,6 +41,7 @@ module.exports = class Auth{
                 return
             }
     
+            //gets user and moves on
             let user = await User.findOne({email:payload.email})
     
             if(!user){
@@ -57,6 +59,7 @@ module.exports = class Auth{
 
     static async adminAuth (req,res,next){
         try{
+            //checks if user is valid
             const [allowUser,payload] = await Auth.isAuth(req.cookies.token)
             
             if(!allowUser){
@@ -64,13 +67,15 @@ module.exports = class Auth{
                 return
             }
     
+            //gets user
             let user = await User.findOne({email:payload.email})
     
             if(!user){
                 user = new User(payload)
                 await user.save()
             }
-    
+            
+            //check if admin
             const admins = [...JSON.parse(fs.readFileSync(path.resolve(`${__dirname}/../services/admins.json`)).toString())]
             const isAdmin = admins.findIndex((i) => i == payload.email) != -1
     
