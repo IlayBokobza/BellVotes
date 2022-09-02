@@ -6,6 +6,7 @@ const Ban = require('../models/banRecord')
 const dayjs = require('dayjs')
 const {exec} = require('child_process')
 const ProccessVideo = require('../services/proccessVideo')
+const Auth = require('../services/auth')
 const downloadSongPath = require('path').resolve(__dirname,'../scripts/downloadSong')
 
 class SubmissionsController {
@@ -18,7 +19,7 @@ class SubmissionsController {
             }
 
             //if already submitted
-            if (req.user.hasSubmited) {
+            if (req.user.hasSubmited && !Auth.isAdminEmail(req.user.email)) {
                 res.status(400).send('אתה כבר שלחת הצעה לסיבוב הזה')
                 return
             }

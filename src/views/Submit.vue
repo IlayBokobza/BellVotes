@@ -2,10 +2,10 @@
   <form @submit.prevent="send" class="submit">
     <h2>חוקים</h2>
     <ul>
-      <li>הקישור חייב להיות לשיר</li>
+      <li>הקישור חייב להיות קישור לשיר</li>
       <li>השיר חייב להיות בעברית</li>
       <li>השיר חייב להיות ראוי</li>
-      <li>עבירה על החוקים יכולה לחסום אותך מלשלוח עוד הצעות</li>
+      <li>עבירה על החוקים יכולה למנוע ממך מלשלוח עוד הצעות</li>
     </ul>
     <div class="input-container"><Input @newValue="updateValue" text="קישור לשיר ביוטיוב"></Input></div>
     <button class="btn">שלח</button>

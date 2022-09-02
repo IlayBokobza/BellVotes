@@ -76,8 +76,7 @@ module.exports = class Auth{
             }
             
             //check if user is an admin.
-            const admins = [...JSON.parse(fs.readFileSync(path.resolve(`${__dirname}/../services/admins.json`)).toString())]
-            const isAdmin = admins.findIndex((i) => i == payload.email) != -1
+            const isAdmin = Auth.isAdminEmail(payload.email)
     
             if(!isAdmin){
                 res.status(403).send()
@@ -91,5 +90,10 @@ module.exports = class Auth{
             console.log(e)
             res.status(401).send({ error: 'Please authenticate' })
         }
+    }
+
+    static isAdminEmail(email){
+        const admins = [...JSON.parse(fs.readFileSync(path.resolve(`${__dirname}/../services/admins.json`)).toString())]
+        return admins.findIndex((i) => i == email) != -1
     }
 }

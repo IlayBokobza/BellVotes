@@ -40,3 +40,44 @@ ul{
 .swal2-popup *{
     font-family: 'Secular One', sans-serif;
 }
+
+.c1{
+    background-color: var(--color1);
+}
+
+.c2{
+    background-color: var(--color2);
+}
+
+.c3{
+    background-color: var(--color3);
+}
+
+.c4{
+    background-color: var(--color4);
+}
+
+.hightlight{
+    background-color: var(--highlight);
+}
+
+
+.c1--text{
+    color: var(--color1);
+}
+
+.c2--text{
+    color: var(--color2);
+}
+
+.c3--text{
+    color: var(--color3);
+}
+
+.c4--text{
+    color: var(--color4);
+}
+
+.hightlight--text{
+    color: var(--highlight);
+}

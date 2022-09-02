@@ -1,9 +1,9 @@
 <template>
     <div v-if="pageTitle" class="navbar">
         <div class="links">
-            <router-link v-if="isAdmin && ($route.path === '/admin' || $route.path === '/bans')" to="/vote">חזרה</router-link>
-            <router-link v-else-if="isAdmin" to="/admin">לעמוד המנהלים</router-link>
             <router-link :to="pageTitle.link">{{pageTitle.text || "no title given"}}</router-link>
+            <router-link class="hightlight--text" v-if="isAdmin && ($route.path === '/admin' || $route.path === '/bans')" to="/vote">יציאת מעמוד המנהלים</router-link>
+            <router-link class="hightlight--text" v-else-if="isAdmin" to="/admin">לעמוד המנהלים</router-link>
         </div>
         <div class="profile">
             <p>{{username}}</p>
