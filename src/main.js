@@ -72,18 +72,24 @@ const loadApp = () => {
 
         //when users signs in
         if(isSignedIn){
-          console.log('user is signed in')
-          const user = ga.currentUser.get()
-          const profile = user.getBasicProfile()
-
-          store.commit('saveUserData',{
-            email:profile.getEmail(),
-            image:profile.getImageUrl(),
-            name:profile.getName(),
-            token:user.getAuthResponse().id_token
-          })
-          
-          await getData()
+          try{
+            console.log('user is signed in')
+            const user = ga.currentUser.get()
+            const profile = user.getBasicProfile()
+  
+            store.commit('saveUserData',{
+              email:profile.getEmail(),
+              image:profile.getImageUrl(),
+              name:profile.getName(),
+              token:user.getAuthResponse().id_token
+            })
+            
+            await getData()
+          }
+          catch{
+            console.log('error logging in, logging out.')
+            Cookies.remove('token')
+          }
         }
 
         //when uses signs out

@@ -88,7 +88,7 @@ export default {
   },
   computed:{
     songs(){
-      return this.$store.state.acceptedSubmissions
+      return this.$store.state.acceptedSubmissions || []
     },
     selectedSong(){
       return this.$store.state.myVote
