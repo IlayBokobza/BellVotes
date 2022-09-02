@@ -38,14 +38,14 @@ module.exports = class Cycle{
             //gets all current subs and replaces with new ones
             const subs = await AcceptedSubmission.find({})
             await AcceptedSubmission.deleteMany({})
-            await AcceptedSubmission.insertMany(fsubs.map(i => {return {
+            await AcceptedSubmission.insertMany(fsubs.map(i => ({
                 title:i.title,
                 link:i.link,
                 owner:i.owner,
                 ownerName:i.ownerName,
                 songData:i.songData,
                 votes:0
-            }}))
+            })))
 
             //resets users' vote and submissions
             await User.updateMany({},{
