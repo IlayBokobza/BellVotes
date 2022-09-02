@@ -25,7 +25,10 @@ const getData = async () => {
   accpeted = accpeted.sort((a,b) => (a.votes < b.votes) ? 1 : ((b.votes < a.votes) ? -1 : 0))
   store.commit('setSubmissionsData',{accpeted,myVote,isAdmin:isAdmin === 200})
 
-  if(isAdmin !== 200) return;
+  if(isAdmin !== 200) {
+    console.log('User is not an admin')
+    return
+  }
   console.log('user is admin')
 
   const {data:submissions} = await axios.get('/api/submit')
@@ -86,9 +89,10 @@ const loadApp = () => {
             
             await getData()
           }
-          catch{
+          catch(e){
             console.log('error logging in, logging out.')
             Cookies.remove('token')
+            console.warn(e)
           }
         }
 

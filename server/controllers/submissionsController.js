@@ -77,6 +77,7 @@ class SubmissionsController {
         }
     }
 
+    //accecpting a submittion
     static async put(req, res) {
         try {
             ProccessVideo.logProgress(`Song "${req.body.name}" with the id of ${req.params.id} has been accpeted.`)

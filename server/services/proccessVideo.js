@@ -31,36 +31,46 @@ module.exports = class ProccessVideo {
         const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${this.id}&key=${process.env.YOUTUBE_API}`)
         let time = data.items[0].contentDetails.duration + ''
         time = time.replace(/PT/, '')
+        let hours;
+        let minutes;
+        let seconds;
 
         if (time.includes('H')) {
             const split = time.split('H')
             time = split[1]
-            var hours = parseInt(split[0])
+            hours = parseInt(split[0])
         } else {
-            var hours = 0
+            hours = 0
         }
 
         if (time.includes('M')) {
             const split = time.split('M')
             time = split[1]
-            var minutes = parseInt(split[0])
+            minutes = parseInt(split[0])
         } else {
-            var minutes = 0
+            minutes = 0
         }
 
         if (time.includes('S')) {
             const split = time.split('S');
-            var seconds = parseInt(split[0])
+            seconds = parseInt(split[0])
         } else {
-            var seconds = 0
+            seconds = 0
         }
 
         const timeInSeconds = hours * 60 * 60 + minutes * 60 + seconds
         return timeInSeconds - 10 > this.startingTimeInSeconds
     }
 
+    static createFolderIfNeeded(pathRaw){
+        const path = require('path').resolve(__dirname,pathRaw)
+        if(fs.existsSync(path)) return;
+        fs.mkdirSync(path)
+        ProccessVideo.logProgress('Create the temp folder')
+    }
+
     async downloadBell() {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 const isTimeStampValid = await this.checkVideoLength()
 
@@ -73,6 +83,7 @@ module.exports = class ProccessVideo {
                 const filename = Math.random().toString(36).substring(2, 15)
                 const uncutFilepath = path.resolve(__dirname, `../temp/${filename}.mp4`)
                 const filepath = path.resolve(__dirname, `../temp/${filename}.output.mp3`)
+                ProccessVideo.createFolderIfNeeded('../temp')
                 
                 ProccessVideo.logProgress('Downloading song')
                 let startingTimestamp = Date.now();
@@ -82,7 +93,7 @@ module.exports = class ProccessVideo {
                     console.log(chalk.bgBlue(`Finished downloading took ${(Date.now()-startingTimestamp)/1000} seconds`))
 
                     //calling ffmpeg
-                    exec(`${process.env.FFMPEG_PATH} -ss 00:${this.startingTime} -i ${uncutFilepath} -filter:a loudnorm -filter:a "volume=10dB" -ss 00:00:10 -t 00:00:10 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error, stdout, stderr) => {
+                    exec(`${process.env.FFMPEG_PATH} -ss 00:${this.startingTime} -i ${uncutFilepath} -filter:a loudnorm -filter:a "volume=10dB" -ss 00:00:10 -t 00:00:10 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error) => {
                         if (error) {
                             console.log(`error: ${error.message}`);
                             reject(error.message)
