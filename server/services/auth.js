@@ -75,7 +75,7 @@ module.exports = class Auth{
                 await user.save()
             }
             
-            //check if admin
+            //check if user is an admin
             const admins = [...JSON.parse(fs.readFileSync(path.resolve(`${__dirname}/../services/admins.json`)).toString())]
             const isAdmin = admins.findIndex((i) => i == payload.email) != -1
     
