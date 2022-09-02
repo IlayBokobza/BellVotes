@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "dev": "nodemon server/index",
     "start": "node server/index",
-    "skip-cycle": "node server/scripts/skip",
+    "skip": "node server/scripts/skip",
     "move-future": "node server/scripts/moveFuture.js"
   },
   "dependencies": {
