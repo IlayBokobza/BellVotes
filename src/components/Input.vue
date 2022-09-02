@@ -63,7 +63,7 @@ export default Vue.extend({
         font-size: 2rem;
         position: absolute;
         display: inline-block;
-        width: 200px;
+        width: 100%;
         text-align: right;
         right: 2%;
         user-select: none;
@@ -71,7 +71,7 @@ export default Vue.extend({
     }
 
     input:not(:placeholder-shown) + label{
-        transform: translate(23%,-60%) scale(.6);
+        transform: translate(20%,-60%) scale(.6);
         text-decoration: underline;
     }
 }

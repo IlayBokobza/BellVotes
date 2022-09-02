@@ -114,7 +114,7 @@ class SubmissionsController {
 
             await ban.save()
 
-            res.send()
+            res.send(ban.toObject())
         } catch (e) {
             console.log(e)
             res.status(500).send(e)

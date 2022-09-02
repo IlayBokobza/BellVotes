@@ -17,7 +17,7 @@ export default new Vuex.Store({
     //submissions
     submissions:null,
     acceptedSubmissions:null,
-    bans:null,
+    bans:[],
 
 
   },
@@ -54,6 +54,7 @@ export default new Vuex.Store({
     removeSong:(state,songId) => {
       state.submissions = state.submissions.filter(i => i._id != songId)
     },
+    addBan:(state,payload) => state.bans.push(payload)
   },
   actions: {
     signout(){

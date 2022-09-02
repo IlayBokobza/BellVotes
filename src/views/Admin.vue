@@ -58,8 +58,9 @@ export default {
       if(!isConfirmed) return;
 
       this.$emit('toogleLoad')
-      await axios.delete(`/api/submit/ban/${s._id}`).catch(e => (Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})))
+      const {data:ban} = await axios.delete(`/api/submit/ban/${s._id}`).catch(e => (Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})))
       this.$store.commit('removeSong',s._id)
+      this.$store.commit('addBan',ban)
       this.$emit('toogleLoad')
     },
   },
