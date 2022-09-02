@@ -1,5 +1,8 @@
 <template>
   <div class="bans">
+      <div class="search-box">
+        <Input text="חיפוש" @newValue="search = $event"/>
+      </div>
       <div class="ban-card" v-for="ban in bans" :key="ban._id">
           <ul>
               <li>נחסם על ידי: <span>{{ban.admin}}</span></li>
@@ -13,7 +16,14 @@
 </template>
 
 <script>
+import Input from '../components/Input.vue'
 export default {
+  components: { Input },
+  data(){
+    return{
+      search:null,
+    }
+  },
   beforeCreate(){
     this.$store.commit('setTitle',{
       text:'רשימת בקשות',
@@ -22,6 +32,9 @@ export default {
   },
   computed:{
     bans(){
+      if(this.search){
+        return this.$store.state.bans.filter(ban => ban.userName.includes(this.search))
+      }
       return this.$store.state.bans
     }
   }
@@ -45,6 +58,12 @@ export default {
     span{
       color: #2e2e2e;
     }
+  }
+
+  .search-box{
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 3rem;
   }
 }
 </style>
