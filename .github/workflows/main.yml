@@ -19,4 +19,4 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: 22
-        script: bash ~/www/BellVotes/update.bash
+        script: bash /var/www/BellVotes/update.bash
