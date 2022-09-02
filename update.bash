@@ -1,4 +1,4 @@
-cd ~/www/BellVotes
+cd /var/www/BellVotes
 # stops server
 pm2 stop server/index.js
 

@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Storage = require('../services/storage')
 
+//storage routes
 router.get('/',(req,res) => {
     console.log('Song Requested')
     res.send(Storage.getSong())
