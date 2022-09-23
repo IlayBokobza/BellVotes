@@ -24,7 +24,7 @@ const schema = mongoose.Schema({
     }
 })
 
-const AcceptedSubmission = mongoose.model('AcceptedSubmission',schema)
-const FutureSubmission = mongoose.model('FutureSubmission',schema)
+const CurrentSongs = mongoose.model('CurrentSongs',schema)
+const FutureSongs = mongoose.model('FutureSongs',schema)
 
-module.exports = {AcceptedSubmission,FutureSubmission}
+module.exports = {CurrentSongs,FutureSongs}

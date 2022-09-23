@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { FutureSubmission } = require('../models/accpetedSubmissionModel')
+const { FutureSongs } = require('../models/accpetedSubmissionModel')
 const Submission = require('../models/submissionsModel')
 const User = require('../models/userModel')
 const ProccessVideo = require('../services/proccessVideo')
@@ -30,7 +30,7 @@ mongoose.connect(process.env.MONGO,{
         }
         
         ProccessVideo.logProgress('Saving submission')
-        const accpetedSub = new FutureSubmission(subData)
+        const accpetedSub = new FutureSongs(subData)
         await accpetedSub.save()
         await sub.delete()
         ProccessVideo.logProgress('Done')

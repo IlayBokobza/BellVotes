@@ -16,7 +16,7 @@ export default new Vuex.Store({
     
     //submissions
     submissions:null,
-    acceptedSubmissions:null,
+    currentSongs:null,
     bans:[],
 
 
@@ -32,7 +32,7 @@ export default new Vuex.Store({
     },
     setTitle:(state,payload) => (state.pageTitle = payload),
     setSubmissionsData:(state,payload) => {
-      state.acceptedSubmissions = payload.accpeted
+      state.currentSongs = payload.accpeted
       state.myVote = payload.myVote
       state.isAdmin = payload.isAdmin
     },
@@ -41,12 +41,12 @@ export default new Vuex.Store({
       state.bans = payload.bans
     },
     voteForSong:(state,newSongId) => {
-      const newSelectedIndex = state.acceptedSubmissions.findIndex((item) => item._id == newSongId)
-      const oldSelectedIndex = state.acceptedSubmissions.findIndex((item) => item._id == state.myVote)
-      state.acceptedSubmissions[newSelectedIndex].votes++
+      const newSelectedIndex = state.currentSongs.findIndex((item) => item._id == newSongId)
+      const oldSelectedIndex = state.currentSongs.findIndex((item) => item._id == state.myVote)
+      state.currentSongs[newSelectedIndex].votes++
       
       if(oldSelectedIndex != -1){
-        state.acceptedSubmissions[oldSelectedIndex].votes--
+        state.currentSongs[oldSelectedIndex].votes--
       }
 
       state.myVote = newSongId

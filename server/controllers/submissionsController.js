@@ -1,6 +1,6 @@
 const axios = require('axios').default
 const Submission = require('../models/submissionsModel')
-const {AcceptedSubmission} = require('../models/accpetedSubmissionModel')
+const {CurrentSongs} = require('../models/accpetedSubmissionModel')
 const User = require('../models/userModel')
 const Ban = require('../models/banRecord')
 const dayjs = require('dayjs')
@@ -57,7 +57,7 @@ class SubmissionsController {
 
     static async getAccpeted(req, res) {
         try {
-            const data = await AcceptedSubmission.find({})
+            const data = await CurrentSongs.find({})
             res.send(data)
         } catch (e) {
             console.log(e)
@@ -142,7 +142,7 @@ class SubmissionsController {
                     return
                 }
 
-                const oldSub = await AcceptedSubmission.findById(req.user.votedFor)
+                const oldSub = await CurrentSongs.findById(req.user.votedFor)
 
                 if(oldSub){
                     oldSub.votes--
@@ -151,7 +151,7 @@ class SubmissionsController {
             }
 
             req.user.votedFor = id
-            const sub = await AcceptedSubmission.findById(id)
+            const sub = await CurrentSongs.findById(id)
             sub.votes++
 
             await req.user.save()

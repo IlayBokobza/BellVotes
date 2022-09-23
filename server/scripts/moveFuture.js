@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const chalk = require('chalk')
-const {FutureSubmission,AcceptedSubmission} = require('../models/accpetedSubmissionModel')
+const {FutureSongs,CurrentSongs} = require('../models/accpetedSubmissionModel')
 
 mongoose.connect('mongodb://localhost:27017',{
     useNewUrlParser: true,
@@ -10,9 +10,9 @@ mongoose.connect('mongodb://localhost:27017',{
     console.log(chalk.bgGreen("connected to mongoose"))
 
     //addes all future submissions now
-    const fsubs = await FutureSubmission.find({})
-    await FutureSubmission.deleteMany({})
-    await AcceptedSubmission.insertMany(fsubs.map(i => {return {
+    const fsubs = await FutureSongs.find({})
+    await FutureSongs.deleteMany({})
+    await CurrentSongs.insertMany(fsubs.map(i => {return {
         title:i.title,
         link:i.link,
         owner:i.owner,
