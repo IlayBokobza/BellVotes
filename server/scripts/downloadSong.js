@@ -1,3 +1,4 @@
+//this script turns a submission into a future song
 const mongoose = require('mongoose')
 const { FutureSongs } = require('../models/accpetedSubmissionModel')
 const Submission = require('../models/submissionsModel')

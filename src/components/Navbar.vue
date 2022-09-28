@@ -1,10 +1,12 @@
 <template>
     <div v-if="pageTitle" class="navbar">
         <div class="links">
-            <router-link :to="pageTitle.link">{{pageTitle.text || "no title given"}}</router-link>
-            <router-link class="hightlight--text" v-if="isAdmin && ($route.path === '/admin' || $route.path === '/bans')" to="/vote">יציאת מעמוד המנהלים</router-link>
+            <span @click="openDrawer" v-if="isAdminPage" class="menu-button material-symbols-outlined">menu</span>
+            <router-link v-if="!isAdminPage" :to="pageTitle.link">{{pageTitle.text || "no title given"}}</router-link>
+            <router-link class="hightlight--text" v-if="isAdminPage" to="/vote">יציאת מעמוד המנהלים</router-link>
             <router-link class="hightlight--text" v-else-if="isAdmin" to="/admin">לעמוד המנהלים</router-link>
         </div>
+        <h2 v-if="isAdminPage">עמוד מנהלים</h2>
         <div class="profile">
             <p>{{username}}</p>
             <img :src="image" alt="">
@@ -20,6 +22,9 @@ export default {
         logout(){
             this.$store.dispatch('signout')
             location.reload()
+        },
+        openDrawer(){
+            this.$store.commit('showDrawer')
         }
     },
     computed:{
@@ -34,6 +39,9 @@ export default {
         },
         isAdmin(){
             return this.$store.state.isAdmin
+        },
+        isAdminPage(){
+            return this.isAdmin && this.$route.path.includes('admin')
         }
     }
 }
@@ -109,6 +117,11 @@ export default {
         cursor: pointer;
         opacity: 0;
         transition: all .3s;
+    }
+
+    .menu-button{
+        margin-right: 1rem;
+        cursor: pointer;
     }
 }
 </style>

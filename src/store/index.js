@@ -19,7 +19,8 @@ export default new Vuex.Store({
     currentSongs:null,
     bans:[],
 
-
+    //state
+    showDrawer:false,
   },
   mutations: {
     saveUserData(state,{email,token,image,name}){
@@ -54,7 +55,9 @@ export default new Vuex.Store({
     removeSong:(state,songId) => {
       state.submissions = state.submissions.filter(i => i._id != songId)
     },
-    addBan:(state,payload) => state.bans.push(payload)
+    addBan:(state,payload) => state.bans.push(payload),
+    showDrawer:(state) => state.showDrawer = true,
+    hideDrawer:(state) => state.showDrawer = false,
   },
   actions: {
     signout(){

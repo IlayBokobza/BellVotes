@@ -66,7 +66,7 @@ const routes = [
     beforeEnter:onlyAdmin,
   },
   {
-    path: '/bans',
+    path: '/admin/bans',
     name: 'bans',
     component: Bans,
     beforeEnter:onlyAdmin,

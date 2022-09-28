@@ -3,6 +3,7 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 const User = require('../models/userModel')
 const fs = require('fs')
 const path = require('path')
+const config = require('../config')
 
 module.exports = class Auth{
     static async isAuth(token){
@@ -18,8 +19,8 @@ module.exports = class Auth{
             })
             const payload = ticket.getPayload()
             
-            if(!payload.hd || payload.hd != "pelech.ort.org.il"){
-                console.log('A non pelech user has made a request!')
+            if(!payload.hd || config.emailDomain && payload.hd != config.emailDomain){
+                console.log(`A non ${config.schoolName} user has made a request!`)
                 return [false,payload]
             }
 
@@ -37,7 +38,7 @@ module.exports = class Auth{
             const [allowUser,payload] = await Auth.isAuth(req.cookies.token)
             
             if(!allowUser){
-                res.status(401).send({ error: 'Please authenticate with pelech' })
+                res.status(401).send({ error: `Please authenticate with ${config.schoolName}` })
                 return
             }
     
@@ -63,7 +64,7 @@ module.exports = class Auth{
             const [allowUser,payload] = await Auth.isAuth(req.cookies.token)
             
             if(!allowUser){
-                res.status(401).send({ error: 'Please authenticate with pelech' })
+                res.status(401).send({ error: `Please authenticate with ${config.schoolName}` })
                 return
             }
     

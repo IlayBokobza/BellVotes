@@ -2,6 +2,7 @@
   <div id="app">
     <Navbar/>
     <router-view @toogleLoad="toogle" />
+    <Drawer/>
     <Footer/>
     <Loading v-if="(!$store.state.email && token) || loading"/>
   </div>
@@ -11,12 +12,14 @@
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 import Loading from './components/Loading.vue'
+import Drawer from './components/Drawer.vue'
 import Cookies from 'js-cookie'
 export default {
   components:{
     Navbar,
     Footer,
-    Loading
+    Loading,
+    Drawer,
   },
   data(){
     return{

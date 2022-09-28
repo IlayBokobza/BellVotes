@@ -1,6 +1,8 @@
+//this script turns all the futures songs into current songs
 const mongoose = require('mongoose')
 const chalk = require('chalk')
 const {FutureSongs,CurrentSongs} = require('../models/accpetedSubmissionModel')
+const config = require('../config')
 
 mongoose.connect('mongodb://localhost:27017',{
     useNewUrlParser: true,
@@ -11,7 +13,14 @@ mongoose.connect('mongodb://localhost:27017',{
 
     //addes all future submissions now
     const fsubs = await FutureSongs.find({})
-    await FutureSongs.deleteMany({})
+    
+    if(config.repeatingSongs){
+        await FutureSongs.updateMany({},{votes:0})
+    }
+    else{
+        await FutureSongs.deleteMany({})
+    }
+
     await CurrentSongs.insertMany(fsubs.map(i => {return {
         title:i.title,
         link:i.link,

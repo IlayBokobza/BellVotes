@@ -8,6 +8,7 @@
 
 <script>
 import Swal from 'sweetalert2'
+import axios from 'axios'
 export default {
     name:'login',
     beforeCreate(){
@@ -23,30 +24,24 @@ export default {
         })
     },    
     methods:{
-        onSignIn (user) {
+        async onSignIn (user) {
             const profile = user.getBasicProfile()
-            const email = profile.getEmail()
-            const isPelechEmail = /@pelech\.ort\.org\.il$/i.test(email)
 
-            if(!isPelechEmail){
-                Swal.fire({
-                    title:'אימייל לא תקין',
-                    text:'תנסו להתחבר שוב עם האיימל של פלך',
-                    icon:'error',
-                    confirmButtonText:'אוקי'
-                })
+            try {
+                await axios.get('/api/auth/isAuth')
+            } catch (error) {
+                Swal
+                console.log(error.response)
+                return
+            }
 
-                this.$store.dispatch('signout')
-            }
-            else{
-                this.$store.commit('saveUserData',{
-                    email:profile.getEmail(),
-                    image:profile.getImageUrl(),
-                    name:profile.getName(),
-                    token:user.getAuthResponse().id_token
-                })
-                this.$router.push('/vote')
-            }
+            this.$store.commit('saveUserData',{
+                email:profile.getEmail(),
+                image:profile.getImageUrl(),
+                name:profile.getName(),
+                token:user.getAuthResponse().id_token
+            })
+            this.$router.push('/vote')
         }
     }
 }
