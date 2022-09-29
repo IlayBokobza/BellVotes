@@ -34,7 +34,7 @@ const getData = async () => {
   const {data:submissions} = await axios.get('/api/submit')
   console.log('got submissions from server')
 
-  const {data:bans} = await axios.get('/api/submit/bans')
+  const {data:bans} = await axios.get('/api/bans')
   console.log('got bans record from server')
 
   store.commit('setAdminData',{submissions,bans})

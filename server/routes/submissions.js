@@ -17,16 +17,10 @@ router.get('/',Auth.adminAuth,controller.get)
 //getting all the accpepted submissions
 router.get('/accpeted',Auth.normalAuth,controller.getAccpeted)
 
-//getting all bans
-router.get('/bans',Auth.adminAuth,controller.getBans)
-
 //when deny
 router.delete('/:id',Auth.adminAuth,controller.delete)
 
 //when accept
 router.put('/:id',Auth.adminAuth,controller.put)
-
-//when ban
-router.delete('/ban/:id',Auth.adminAuth,controller.ban)
 
 module.exports = router

@@ -18,11 +18,12 @@ module.exports = class Auth{
                 audience:config.external.googleClientId
             })
             const payload = ticket.getPayload()
-            
-            if(!payload.hd || config.emailDomain && payload.hd != config.emailDomain){
+
+            if(!payload.hd || (config.emailDomain && payload.hd != config.emailDomain)){
                 console.log(`A non ${config.schoolName} user has made a request!`)
                 return [false,payload]
             }
+
 
             return [true,payload]
         }
