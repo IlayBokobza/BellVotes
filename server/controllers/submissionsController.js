@@ -7,6 +7,7 @@ const dayjs = require('dayjs')
 const {exec} = require('child_process')
 const ProccessVideo = require('../services/proccessVideo')
 const Auth = require('../services/auth')
+const config = require('../config')
 const downloadSongPath = require('path').resolve(__dirname,'../scripts/downloadSong')
 
 class SubmissionsController {
@@ -24,7 +25,7 @@ class SubmissionsController {
                 return
             }
 
-            const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${req.body.videoId}&key=${process.env.YOUTUBE_API}`)
+            const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${req.body.videoId}&key=${config.external.youtubeApiKey}`)
             const { title } = data.items[0].snippet
 
             const sub = new Submission({

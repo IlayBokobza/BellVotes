@@ -62,7 +62,7 @@ export default {
     }
 
     .menu{
-        background-color:var(--color2) ;
+        background-color:var(--color1) ;
         height: 100%;
         width: 20%;
         max-width: 18rem;
@@ -72,7 +72,7 @@ export default {
         transform: translate(-100%);
 
         *{
-            color: var(--color1);
+            color: var(--color2);
         }
 
         h2{

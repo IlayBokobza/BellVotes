@@ -4,6 +4,7 @@ const chalk = require('chalk')
 const axios = require('axios')
 const path = require('path')
 const {exec} = require('child_process')
+const config = require('../config')
 
 module.exports = class ProccessVideo {
     id;
@@ -28,7 +29,7 @@ module.exports = class ProccessVideo {
     async checkVideoLength() {
         ProccessVideo.logProgress('Checking video length')
 
-        const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${this.id}&key=${process.env.YOUTUBE_API}`)
+        const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${this.id}&key=${config.external.youtubeApiKey}`)
         let time = data.items[0].contentDetails.duration + ''
         time = time.replace(/PT/, '')
         let hours;
@@ -93,7 +94,7 @@ module.exports = class ProccessVideo {
                     console.log(chalk.bgBlue(`Finished downloading took ${(Date.now()-startingTimestamp)/1000} seconds`))
 
                     //calling ffmpeg
-                    exec(`${process.env.FFMPEG_PATH} -ss 00:${this.startingTime} -i ${uncutFilepath} -ss 00:00:10 -t 00:00:10 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error) => {
+                    exec(`${config.external.ffmpegPath} -ss 00:${this.startingTime} -i ${uncutFilepath} -ss 00:00:10 -t 00:00:10 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error) => {
                         if (error) {
                             console.log(`error: ${error.message}`);
                             reject(error.message)

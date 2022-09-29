@@ -4,9 +4,10 @@ const chalk = require('chalk')
 const path = require('path')
 const cookieParser = require("cookie-parser");
 const Cycle = require('./services/cycle')
+const config = require('./config')
 
 require('dotenv').config()
-if(!process.env.MAX_SONGS) process.env.MAX_SONGS = 10;
+if(!config.maxSongs) config.maxSongs = 10;
 
 const app = express()
 app.use(express.json())
@@ -27,7 +28,7 @@ app.get(/.*/,(req,res) => {
 })
 
 //connects to mongo
-mongoose.connect(process.env.MONGO,{
+mongoose.connect(config.external.mongoPath,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     dbName: "Pelech-Bell-Votes-App",
@@ -35,6 +36,6 @@ mongoose.connect(process.env.MONGO,{
 
 
 //starts server
-app.listen(process.env.SERVER_PORT,() => {
-    console.log('Up and running on port ' + process.env.SERVER_PORT)
+app.listen(config.port,() => {
+    console.log('Up and running on port ' + config.port)
 })

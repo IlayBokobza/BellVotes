@@ -1,9 +1,9 @@
 const {OAuth2Client} = require('google-auth-library');
-const client = new OAuth2Client(process.env.CLIENT_ID);
+const config = require('../config')
+const client = new OAuth2Client(config.external.googleClientId);
 const User = require('../models/userModel')
 const fs = require('fs')
 const path = require('path')
-const config = require('../config')
 
 module.exports = class Auth{
     static async isAuth(token){
@@ -15,7 +15,7 @@ module.exports = class Auth{
 
             const ticket = await client.verifyIdToken({
                 idToken:token,
-                audience:process.env.CLIENT_ID
+                audience:config.external.googleClientId
             })
             const payload = ticket.getPayload()
             
