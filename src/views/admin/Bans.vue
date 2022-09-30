@@ -33,7 +33,7 @@ export default {
   computed:{
     bans(){
       if(this.search){
-        return this.$store.state.bans.filter(ban => ban.userName.includes(this.search))
+        return this.$store.state.bans.filter(ban => ban.userName.includes(this.search.trim()))
       }
       return this.$store.state.bans
     }

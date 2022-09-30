@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
 import axios from 'axios'
 export default {
     name:'login',
@@ -30,7 +29,6 @@ export default {
             try {
                 await axios.get('/api/auth/isAuth')
             } catch (error) {
-                Swal
                 console.log(error.response)
                 return
             }

@@ -2,7 +2,7 @@
   <div class="admin">
     <div v-if="subs.length > 0" class="subs-container">
       <div class="card-container" v-for="(sub,i) in subs" :key="i">
-        <SubmissionCard @accept="accept($event,sub)" @deny="deny(sub)" @ban="ban(sub)" :videoName="sub.title" :videoId="sub.link"/>
+        <SubmissionCard @accept="accept($event,sub)" @deny="deny(sub)" @ban="ban(sub)" :sub="sub" />
       </div>
     </div>
     <h1 v-else>אין בקשות</h1>
@@ -58,7 +58,7 @@ export default {
       if(!isConfirmed) return;
 
       this.$emit('toogleLoad')
-      const {data:ban} = await axios.delete(`/api/submit/ban/${s._id}`).catch(e => (Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})))
+      const {data:ban} = await axios.delete(`/api/ban/${s._id}`).catch(e => (Swal.fire({title:e.response.data,icon:'error',confirmButtonText:'אוקי'})))
       this.$store.commit('removeSong',s._id)
       this.$store.commit('addBan',ban)
       this.$emit('toogleLoad')
@@ -66,6 +66,7 @@ export default {
   },
   computed:{
     subs(){
+      console.log(this.$store.state.submissions)
       return this.$store.state.submissions
     }
   }

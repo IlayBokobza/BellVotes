@@ -1,12 +1,17 @@
 const axios = require('axios').default
 const Submission = require('../models/submissionsModel')
+<<<<<<< HEAD
 const {CurrentSongs, FutureSongs} = require('../models/accpetedSubmissionModel')
 const User = require('../models/userModel')
 const Ban = require('../models/banRecord')
+=======
+const {CurrentSongs} = require('../models/accpetedSubmissionModel')
+>>>>>>> dev2
 const dayjs = require('dayjs')
 const {exec} = require('child_process')
 const ProccessVideo = require('../services/proccessVideo')
 const Auth = require('../services/auth')
+const config = require('../config')
 const downloadSongPath = require('path').resolve(__dirname,'../scripts/downloadSong')
 
 class SubmissionsController {
@@ -24,7 +29,7 @@ class SubmissionsController {
                 return
             }
 
-            const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${req.body.videoId}&key=${process.env.YOUTUBE_API}`)
+            const { data } = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${req.body.videoId}&key=${config.external.youtubeApiKey}`)
             const { title } = data.items[0].snippet
 
             const sub = new Submission({
@@ -107,44 +112,6 @@ class SubmissionsController {
             })
 
             res.send()
-        } catch (e) {
-            console.log(e)
-            res.status(500).send(e)
-        }
-    }
-
-    static async ban(req, res) {
-        try {
-            const id = req.params.id
-            const sub = await Submission.findByIdAndDelete(id)
-            const owner = await User.findById(sub.owner)
-            const bannedUntilDate = dayjs().add(30, 'day')
-            owner.bannedUntil = bannedUntilDate
-
-            await owner.save()
-
-            //create ban record
-            const ban = new Ban({
-                admin: req.user.name,
-                userName: owner.name,
-                userEmail: owner.email,
-                date: dayjs().format('D/M/YYYY'),
-                bannedUntil: dayjs(bannedUntilDate).format('D/M/YYYY')
-            })
-
-            await ban.save()
-
-            res.send(ban.toObject())
-        } catch (e) {
-            console.log(e)
-            res.status(500).send(e)
-        }
-    }
-
-    static async getBans(req, res) {
-        try {
-            const data = await Ban.find({})
-            res.send(data)
         } catch (e) {
             console.log(e)
             res.status(500).send(e)

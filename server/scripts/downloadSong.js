@@ -4,9 +4,9 @@ const { FutureSongs } = require('../models/accpetedSubmissionModel')
 const Submission = require('../models/submissionsModel')
 const User = require('../models/userModel')
 const ProccessVideo = require('../services/proccessVideo')
-require('dotenv').config()
+const config = require('../config')
 
-mongoose.connect(process.env.MONGO,{
+mongoose.connect(config.external.mongoPath,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     dbName: "Pelech-Bell-Votes-App",}
