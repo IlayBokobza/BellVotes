@@ -1,5 +1,7 @@
 const User = require('../models/userModel')
 const Ban = require('../models/banRecord')
+const Submission = require('../models/submissionsModel')
+const dayjs = require('dayjs')
 
 class BansController{
     static async ban(req, res) {
@@ -18,7 +20,11 @@ class BansController{
                 userName: owner.name,
                 userEmail: owner.email,
                 date: dayjs().format('D/M/YYYY'),
-                bannedUntil: dayjs(bannedUntilDate).format('D/M/YYYY')
+                bannedUntil: dayjs(bannedUntilDate).format('D/M/YYYY'),
+                bannedFor:{
+                  title:sub.title,
+                  link:sub.link,  
+                }
             })
 
             await ban.save()

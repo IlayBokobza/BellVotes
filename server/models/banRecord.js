@@ -21,6 +21,16 @@ const Schema = mongoose.Schema({
         type:String,
         required:true,
     },
+    bannedFor:{
+        title:{
+            type:String,
+            required:true,
+        },
+        link:{
+            type:String,
+            required:true,
+        }
+    }
 })
 
 const Ban = mongoose.model('Ban',Schema)

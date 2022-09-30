@@ -10,6 +10,7 @@
               <li>איימל של התלמיד: <span>{{ban.userEmail}}</span></li>
               <li>נחסם ב <span>{{ban.date}}</span></li>
               <li>חסום עד <span>{{ban.bannedUntil}}</span></li>
+              <li>נחסם בגלל "<a :href="`https://youtu.be/${ban.bannedFor.link}`">{{ban.bannedFor.title}}</a>"</li>
           </ul>
       </div>
   </div>
@@ -55,8 +56,17 @@ export default {
     box-shadow: 13px 13px 14px rgba(rgb(32, 32, 32),.5);
     margin-bottom: 2rem;
 
+    ::selection{
+      background-color: var(--color1);
+    }
+
     span{
       color: #2e2e2e;
+    }
+
+    a{
+      color: var(--color3);
+      text-decoration: underline;
     }
   }
 
