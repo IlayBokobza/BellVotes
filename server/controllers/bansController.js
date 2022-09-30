@@ -19,6 +19,7 @@ class BansController{
                 admin: req.user.name,
                 userName: owner.name,
                 userEmail: owner.email,
+                userId:owner._id,
                 date: dayjs().format('D/M/YYYY'),
                 bannedUntil: dayjs(bannedUntilDate).format('D/M/YYYY'),
                 bannedFor:{
@@ -40,6 +41,20 @@ class BansController{
         try {
             const data = await Ban.find({})
             res.send(data)
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
+        }
+    }
+
+    static async delete(req,res){
+        try {
+            const ban = await Ban.findByIdAndDelete(req.params.id)
+            const user = await User.findById(ban.userId)
+            user.bannedUntil = 0;
+            await user.save()
+
+            res.send()
         } catch (e) {
             console.log(e)
             res.status(500).send(e)

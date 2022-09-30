@@ -12,12 +12,15 @@
               <li>חסום עד <span>{{ban.bannedUntil}}</span></li>
               <li>נחסם בגלל "<a :href="`https://youtu.be/${ban.bannedFor.link}`">{{ban.bannedFor.title}}</a>"</li>
           </ul>
+          <button @click="revokeBan(ban)" class="btn--red btn">ביטול חסימה</button>
       </div>
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import Input from '../../components/Input.vue'
+import axios from 'axios'
 export default {
   components: { Input },
   data(){
@@ -30,6 +33,22 @@ export default {
       text:'רשימת בקשות',
       link:'/admin'
     })
+  },
+  methods:{
+    async revokeBan(ban){
+      const {isConfirmed} = await Swal.fire({
+        icon:'warning',
+        title:`האם אתה רוצה לבטל את החסימה של ${ban.userName}` + '?',
+        confirmButtonText:'כן',
+        denyButtonText:'לא',
+        showDenyButton:true
+      })
+
+      if(!isConfirmed) return;
+
+      await axios.delete(`/api/bans/${ban._id}`)
+      this.$store.commit('removeBan',ban._id)
+    }
   },
   computed:{
     bans(){

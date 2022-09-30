@@ -61,6 +61,9 @@ export default new Vuex.Store({
       state.futureSongs = state.futureSongs.filter(i => i._id != songId)
     },
     addBan:(state,payload) => state.bans.push(payload),
+    removeBan:(state,id) => {
+      state.bans = state.bans.filter(i => i._id != id)
+    },
     showDrawer:(state) => state.showDrawer = true,
     hideDrawer:(state) => state.showDrawer = false,
   },

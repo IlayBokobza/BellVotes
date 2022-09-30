@@ -1,6 +1,6 @@
 .btn{
     display: block;
-    color: #000;
+    background-color: #000;
     background-color: var(--color2);
     border: 0;
     // font-size: clamp(1.5rem,2vw,2rem);
@@ -20,5 +20,25 @@
     &:active{
         transform: translateY(1px);
         box-shadow: 3px 6px 4px 1px rgba(rgb(32, 32, 32),.5);
+    }
+
+    &--red{
+        background-color: red;
+    }
+
+    &--c1{
+        background-color: var(--color1);
+    }
+
+    &--c3{
+        background-color: var(--color3);
+    }
+
+    &--c4{
+        background-color: var(--color4);
+    }
+
+    &--c5{
+        background-color: var(--color5);
     }
 }

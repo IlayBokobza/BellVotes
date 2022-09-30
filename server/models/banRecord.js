@@ -9,6 +9,10 @@ const Schema = mongoose.Schema({
         type:String,
         required:true,
     },
+    userId:{
+        type:mongoose.Types.ObjectId,
+        required:true,
+    },
     userEmail:{
         type:String,
         required:true,
