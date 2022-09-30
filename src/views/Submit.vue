@@ -2,10 +2,7 @@
   <form @submit.prevent="send" class="submit">
     <h2>חוקים</h2>
     <ul>
-      <li>הקישור חייב להיות קישור לשיר</li>
-      <li>השיר חייב להיות בעברית</li>
-      <li>השיר חייב להיות ראוי</li>
-      <li>עבירה על החוקים יכולה למנוע ממך מלשלוח עוד הצעות</li>
+      <li v-for="(r,i) in rules" :key="i">{{r}}</li>
     </ul>
     <div class="input-container"><Input @newValue="updateValue" text="קישור לשיר ביוטיוב"></Input></div>
     <button class="btn">שלח</button>
@@ -32,6 +29,11 @@ export default {
   },
   components:{
     Input,
+  },
+  computed:{
+    rules(){
+      return window.metadata.rules
+    }
   },
   methods:{
     async send(){

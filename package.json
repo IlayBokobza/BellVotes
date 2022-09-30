@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "dev": "nodemon server/index",
+    "dev": "nodemon server/index --ignore public/* --ignore src/*",
     "start": "node server/index",
     "skip": "node server/scripts/skip",
     "move-future": "node server/scripts/moveFuture.js"

@@ -1,7 +1,7 @@
 <template>
   <div class="login">
       <h1 class="title">!הצילצול הגואל</h1>
-      <h2 class="subtitle mb">.היכנסו עם המייל של פלך כדי להצביע</h2>
+      <h2 class="subtitle mb">.היכנסו עם המייל של {{schoolName}} כדי להצביע</h2>
       <div id="g-login"></div>
   </div>
 </template>
@@ -22,6 +22,11 @@ export default {
             theme: 'dark',
         })
     },    
+    computed:{
+        schoolName(){
+            return window.metadata.name
+        }
+    },
     methods:{
         async onSignIn (user) {
             const profile = user.getBasicProfile()
