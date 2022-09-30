@@ -1,6 +1,6 @@
 const axios = require('axios').default
 const Submission = require('../models/submissionsModel')
-const {CurrentSongs} = require('../models/accpetedSubmissionModel')
+const {CurrentSongs, FutureSongs} = require('../models/accpetedSubmissionModel')
 const User = require('../models/userModel')
 const Ban = require('../models/banRecord')
 const dayjs = require('dayjs')
@@ -58,6 +58,26 @@ class SubmissionsController {
     static async getAccpeted(req, res) {
         try {
             const data = await CurrentSongs.find({})
+            res.send(data)
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
+        }
+    }
+
+    static async getFutureSongs(req, res) {
+        try {
+            const data = await FutureSongs.find({})
+            res.send(data)
+        } catch (e) {
+            console.log(e)
+            res.status(500).send(e)
+        }
+    }
+
+    static async deleteFutureSong(req, res) {
+        try {
+            const data = await FutureSongs.findByIdAndDelete(req.body.id)
             res.send(data)
         } catch (e) {
             console.log(e)

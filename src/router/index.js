@@ -6,9 +6,12 @@ import Store from '../store/index'
 import Login from '../views/Login.vue'
 import Vote from '../views/Vote.vue'
 import SubmitPage from '../views/Submit.vue'
-import Admin from '../views/Admin.vue'
-import Bans from '../views/Bans.vue'
 import NotFound404 from '../views/404.vue'
+
+//admin
+import Admin from '../views/admin/Admin.vue'
+import Bans from '../views/admin/Bans.vue'
+import FutureSongs from '../views/admin/FutureSongs.vue'
 
 
 Vue.use(VueRouter)
@@ -60,6 +63,12 @@ const routes = [
     beforeEnter:onlyLogin,
   },
   {
+    path: '*',
+    name: '404',
+    component: NotFound404,
+  },
+  //admin
+  {
     path: '/admin',
     name: 'admin',
     component: Admin,
@@ -72,9 +81,10 @@ const routes = [
     beforeEnter:onlyAdmin,
   },
   {
-    path: '*',
-    name: '404',
-    component: NotFound404,
+    path: '/admin/future-songs',
+    name: 'future-songs',
+    component: FutureSongs,
+    beforeEnter:onlyAdmin,
   },
 ]
 

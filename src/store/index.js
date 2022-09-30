@@ -17,6 +17,7 @@ export default new Vuex.Store({
     //submissions
     submissions:null,
     currentSongs:null,
+    futureSongs:null,
     bans:[],
 
     //state
@@ -40,6 +41,7 @@ export default new Vuex.Store({
     setAdminData:(state,payload) => {
       state.submissions = payload.submissions
       state.bans = payload.bans
+      state.futureSongs = payload.futureSongs
     },
     voteForSong:(state,newSongId) => {
       const newSelectedIndex = state.currentSongs.findIndex((item) => item._id == newSongId)

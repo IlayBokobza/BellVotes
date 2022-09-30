@@ -11,7 +11,7 @@
 
 <script>
 import axios from 'axios'
-import SubmissionCard from '../components/SubmissionCard.vue'
+import SubmissionCard from '../../components/SubmissionCard.vue'
 import Swal from 'sweetalert2'
 export default {
   name:'admin',

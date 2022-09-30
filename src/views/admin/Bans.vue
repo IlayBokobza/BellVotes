@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Input from '../components/Input.vue'
+import Input from '../../components/Input.vue'
 export default {
   components: { Input },
   data(){

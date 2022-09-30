@@ -1,5 +1,5 @@
 <template>
-    <div v-if="pageTitle" class="navbar">
+    <div v-if="pageTitle || isAdminPage" class="navbar">
         <div class="links">
             <span @click="openDrawer" v-if="isAdminPage" class="menu-button material-symbols-outlined">menu</span>
             <router-link v-if="!isAdminPage" :to="pageTitle.link">{{pageTitle.text || "no title given"}}</router-link>

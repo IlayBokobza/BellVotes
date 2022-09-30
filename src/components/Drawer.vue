@@ -3,7 +3,7 @@
         <div @click.stop class="menu">
             <h2>עמודי מנהלים</h2>
             <ul>
-                <li v-for="(l,i) in links" :key="i">
+                <li @click="hideDrawer" v-for="(l,i) in links" :key="i">
                     <router-link :to="l.path">{{l.name}}</router-link>
                 </li>
             </ul>
@@ -24,6 +24,10 @@ export default {
                 {
                     name:'חסימות',
                     path:'/admin/bans',
+                },
+                {
+                    name:'שירים לפעם הבא',
+                    path:'/admin/future-songs',
                 },
             ]
         }

@@ -31,13 +31,17 @@ const getData = async () => {
   }
   console.log('user is admin')
 
+  //admin requests
   const {data:submissions} = await axios.get('/api/submit')
   console.log('got submissions from server')
 
   const {data:bans} = await axios.get('/api/submit/bans')
   console.log('got bans record from server')
 
-  store.commit('setAdminData',{submissions,bans})
+  const {data:futureSongs} = await axios.get('/api/submit/future-songs')
+  console.log('got future songs record from server')
+
+  store.commit('setAdminData',{submissions,bans,futureSongs})
 }
 
 const loadApp = () => {
