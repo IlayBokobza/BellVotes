@@ -25,7 +25,6 @@ export default {
         };
     },
     mounted(){
-        // console.log(this.id,this.trigger,this.id  === this.trigger)
         this.setBox(this.id  === this.trigger)
     },
     methods: {

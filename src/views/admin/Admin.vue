@@ -66,7 +66,6 @@ export default {
   },
   computed:{
     subs(){
-      console.log(this.$store.state.submissions)
       return this.$store.state.submissions
     }
   }

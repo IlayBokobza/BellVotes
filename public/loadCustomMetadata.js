@@ -1,7 +1,7 @@
 //loads metadata from server
 const request = new XMLHttpRequest()
 
-console.log('here')
+console.log('loads metadata')
 request.open('GET','/api/storage/metadata',false)
 request.send(null)
 const metadata = JSON.parse(request.responseText)

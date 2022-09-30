@@ -18,7 +18,7 @@ router.get('/',Auth.adminAuth,controller.get)
 router.get('/future-songs',Auth.adminAuth,controller.getFutureSongs)
 
 //delete a future song
-router.delete('/future-songs',Auth.adminAuth,controller.deleteFutureSong)
+router.delete('/future-songs/:id',Auth.adminAuth,controller.deleteFutureSong)
 
 //getting all the accpepted submissions
 router.get('/accpeted',Auth.normalAuth,controller.getAccpeted)

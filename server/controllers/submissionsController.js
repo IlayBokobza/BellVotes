@@ -76,7 +76,7 @@ class SubmissionsController {
 
     static async deleteFutureSong(req, res) {
         try {
-            const data = await FutureSongs.findByIdAndDelete(req.body.id)
+            const data = await FutureSongs.findByIdAndDelete(req.params.id)
             res.send(data)
         } catch (e) {
             console.log(e)

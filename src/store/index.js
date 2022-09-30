@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Cookies from 'js-cookie'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -56,6 +57,9 @@ export default new Vuex.Store({
     removeSong:(state,songId) => {
       state.submissions = state.submissions.filter(i => i._id != songId)
     },
+    removeFutureSong:(state,songId) => {
+      state.futureSongs = state.futureSongs.filter(i => i._id != songId)
+    },
     addBan:(state,payload) => state.bans.push(payload),
     showDrawer:(state) => state.showDrawer = true,
     hideDrawer:(state) => state.showDrawer = false,
@@ -67,6 +71,10 @@ export default new Vuex.Store({
         console.log('User signed out.');
       });
     },
+    async getFutureSongs(context){
+      const {data} = await axios.get('/api/submit/future-songs')
+      context.state.futureSongs = data
+    }
   },
   modules: {
   }
