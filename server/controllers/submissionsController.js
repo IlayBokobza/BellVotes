@@ -1,12 +1,6 @@
 const axios = require('axios').default
 const Submission = require('../models/submissionsModel')
-<<<<<<< HEAD
 const {CurrentSongs, FutureSongs} = require('../models/accpetedSubmissionModel')
-const User = require('../models/userModel')
-const Ban = require('../models/banRecord')
-=======
-const {CurrentSongs} = require('../models/accpetedSubmissionModel')
->>>>>>> dev2
 const dayjs = require('dayjs')
 const {exec} = require('child_process')
 const ProccessVideo = require('../services/proccessVideo')
