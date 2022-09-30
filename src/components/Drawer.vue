@@ -29,6 +29,10 @@ export default {
                     name:'שירים לפעם הבא',
                     path:'/admin/future-songs',
                 },
+                {
+                    name:'חזרה לדף ההצבעות',
+                    path:'/vote',
+                }
             ]
         }
     },
@@ -77,6 +81,10 @@ export default {
 
         *{
             color: var(--color2);
+
+            .router-link-exact-active{
+                color: var(--highlight);
+            }
         }
 
         h2{
