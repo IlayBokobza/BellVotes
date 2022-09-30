@@ -1,10 +1,10 @@
 <template>
   <div class="submission-card">
     <!-- youtube embed -->
-    <iframe :src="`https://www.youtube.com/embed/${videoId}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+    <iframe :src="`https://www.youtube.com/embed/${sub.link}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
     <div class="actions">
       <Input @newValue="updateValue" text="זמן צילצול (לדוגמה 02:42)"></Input>
-      <Input @newValue="updateNameValue" :startingText="videoName" text="שם השיר"></Input>
+      <Input @newValue="updateNameValue" :startingText="nameValue" text="שם השיר"></Input>
       <div class="submission-card__btn-container">
         <button @click="accept" class="btn submission-card__btn--accept">אשר</button>
         <button @click="deny" class="btn submission-card__btn--deny">דחה</button>
@@ -19,15 +19,18 @@ import Swal from 'sweetalert2';
 import Input from './Input.vue'
 export default {
     name:'submission-card',
-    props:['videoId','videoName'],
+    props:['sub'],
     components:{
         Input,
     },
     data(){
         return{
           timevalue:'',
-          nameValue:this.videoName
+          nameValue:'',
         }
+    },
+    created(){
+      this.nameValue = this.sub.title
     },
     methods:{
       updateValue(v){

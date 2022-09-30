@@ -27,8 +27,7 @@ export default new Vuex.Store({
       state.email = email;
       state.image = image
       state.name = name
-
-      //save token to cookies
+      
       Cookies.set('token',token)
     },
     setTitle:(state,payload) => (state.pageTitle = payload),
