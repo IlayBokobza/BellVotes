@@ -1,6 +1,6 @@
 <template>
     <div class="future-songs">
-        <button @click="getSongs" v-if="songs.length" class="refresh"><span class="material-symbols-outlined">refresh</span></button>
+        <button @click="getSongs" class="refresh"><span class="material-symbols-outlined">refresh</span></button>
         <div v-if="songs.length" class="table">
             <div class="top">
                 <span>שם השיר</span>
