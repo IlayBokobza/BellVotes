@@ -64,19 +64,7 @@
         padding: 0 2rem;
     }
 
-    .delete-btn{
-        background-color: red;
-        outline: none;
-        border: none;
-        transition: all .2s;
-        cursor: pointer;
-
-        &:hover{
-            background-color: darken(red,5);
-        }
-
-        &:active{
-            background-color: darken(red,10);
-        }
+    .btn{
+      margin: 1rem;
     }
-  }
+}
