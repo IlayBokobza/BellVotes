@@ -10,7 +10,7 @@ class BansController{
             const sub = await Submission.findByIdAndDelete(id)
             const owner = await User.findById(sub.owner)
             const bannedUntilDate = dayjs().add(30, 'day')
-            owner.bannedUntil = bannedUntilDate
+            owner.bannedUntil = bannedUntilDate.unix()
 
             await owner.save()
 
@@ -20,8 +20,8 @@ class BansController{
                 userName: owner.name,
                 userEmail: owner.email,
                 userId:owner._id,
-                date: dayjs().format('D/M/YYYY'),
-                bannedUntil: dayjs(bannedUntilDate).format('D/M/YYYY'),
+                date: dayjs().unix(),
+                bannedUntil: dayjs(bannedUntilDate).unix(),
                 bannedFor:{
                   title:sub.title,
                   link:sub.link,  

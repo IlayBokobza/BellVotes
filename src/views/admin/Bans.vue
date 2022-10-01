@@ -3,16 +3,16 @@
       <div class="search-box">
         <Input text="חיפוש" @newValue="search = $event"/>
       </div>
-      <div class="ban-card" v-for="ban in bans" :key="ban._id">
+      <div class="ban-card" v-for="ban in bans.reverse()" :key="ban._id">
           <ul>
               <li>נחסם על ידי: <span>{{ban.admin}}</span></li>
               <li>שם התלמיד: <span>{{ban.userName}}</span></li>
               <li>איימל של התלמיד: <span>{{ban.userEmail}}</span></li>
-              <li>נחסם ב <span>{{ban.date}}</span></li>
-              <li>חסום עד <span>{{ban.bannedUntil}}</span></li>
+              <li>נחסם ב <span>{{format(ban.date)}}</span></li>
+              <li>חסום עד <span>{{format(ban.bannedUntil)}}</span></li>
               <li>נחסם בגלל "<a :href="`https://youtu.be/${ban.bannedFor.link}`">{{ban.bannedFor.title}}</a>"</li>
           </ul>
-          <button @click="revokeBan(ban)" class="btn--red btn">ביטול חסימה</button>
+          <button @click="revokeBan(ban)" v-if="!isExpired(ban.bannedUntil)" class="btn--red btn">ביטול חסימה</button>
       </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
 import Swal from 'sweetalert2'
 import Input from '../../components/Input.vue'
 import axios from 'axios'
+import dayjs from 'dayjs'
 export default {
   components: { Input },
   data(){
@@ -48,6 +49,12 @@ export default {
 
       await axios.delete(`/api/bans/${ban._id}`)
       this.$store.commit('removeBan',ban._id)
+    },
+    format(date){
+      return dayjs.unix(date).format('D/M/YYYY')
+    },
+    isExpired(date){
+      return dayjs.unix(date).isAfter(dayjs())
     }
   },
   computed:{
@@ -77,6 +84,10 @@ export default {
 
     ::selection{
       background-color: var(--color1);
+    }
+
+    &:last-of-type{
+      margin-bottom: 5rem;
     }
 
     span{
