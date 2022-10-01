@@ -2,8 +2,6 @@ const {OAuth2Client} = require('google-auth-library');
 const config = require('../config')
 const client = new OAuth2Client(config.external.googleClientId);
 const User = require('../models/userModel')
-const fs = require('fs')
-const path = require('path')
 
 module.exports = class Auth{
     static async isAuth(token){
@@ -95,7 +93,6 @@ module.exports = class Auth{
     }
 
     static isAdminEmail(email){
-        const admins = [...JSON.parse(fs.readFileSync(path.resolve(`${__dirname}/../services/admins.json`)).toString())]
-        return admins.findIndex((i) => i == email) != -1
+        return config.admins.findIndex((i) => i == email) != -1
     }
 }

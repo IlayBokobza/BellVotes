@@ -26,6 +26,13 @@ module.exports = {
         "השיר חייב להיות ראוי",
         'עבירה על החוקים יכולה למנוע ממך מלשלוח עוד הצעות',
     ],
+    
+    //list of the admins' emails
+    admins:[
+        "admin1@gmail.com",
+        "admin2@gmail.com",
+        "admin3@yahoo.com",
+    ],
 
     //external keys and paths
     external:{
