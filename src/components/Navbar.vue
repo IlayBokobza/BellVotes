@@ -96,7 +96,7 @@ export default {
     
     a{
         border-bottom: 3px solid;
-        @media only screen and (max-width: 360px){
+        @media only screen and (max-width: 420px){
             display: block;
             width: fit-content;
 
