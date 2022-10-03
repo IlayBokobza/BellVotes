@@ -2,7 +2,7 @@
 ### A system for bell voting.
 
 ## Requirements
-[NodeJS v14+](https://nodejs.org/en/)
+[NodeJS v14](https://nodejs.org/en/blog/release/v14.17.3/)
 
 A google OAuth2 client ID.
 
@@ -63,8 +63,8 @@ module.exports = {
     //external keys and paths
     external:{
         mongoPath:'mongodb://localhost:27017', //mongo url
-        youtubeApiKey:'', //google api key with access to the youtube v3 api
-        googleClientId:'', //google oauth client id
+        youtubeApiKey:'your-api-key', //google api key with access to the youtube v3 api
+        googleClientId:'your-client-id', //google oauth client id
         ffmpegPath:'C:/ffmpeg.exe', // path to ffmpeg install
     },
 }

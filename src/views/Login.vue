@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-      <h1 class="title">!הצילצול הגואל</h1>
+      <h1 class="title">הצילצול הגואל!</h1>
       <h2 class="subtitle mb">.היכנסו עם המייל של {{schoolName}} כדי להצביע</h2>
       <div id="g-login"></div>
   </div>
@@ -49,3 +49,11 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.login{
+    .title{
+        direction: rtl;
+    }
+}
+</style>

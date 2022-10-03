@@ -72,7 +72,6 @@ export default {
     .menu{
         background-color:var(--color1) ;
         height: 100%;
-        width: 20%;
         max-width: 18rem;
         font-size: 2.2rem;
         padding: .3rem 1rem;

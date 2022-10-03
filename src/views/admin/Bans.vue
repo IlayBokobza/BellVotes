@@ -69,7 +69,7 @@ export default {
     min-width: 40vw;
     width: calc(768px - 5vw);
     max-width: 80vw;
-    font-size: clamp(2.1rem,2.5vw,3rem);
+    font-size: clamp(1.8rem,2.5vw,3rem);
     margin: 0 auto;
     padding: 1rem 3rem;
     border-radius: 10px;
@@ -80,12 +80,19 @@ export default {
       background-color: var(--color1);
     }
 
+    li{
+      color:#000 !important;
+      font-weight: 900;
+      
+    }
+
     &:last-of-type{
       margin-bottom: 5rem;
     }
 
     span{
-      color: #2e2e2e;
+      color: inherit;
+      font-weight: 300;
     }
 
     a{

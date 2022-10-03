@@ -3,10 +3,10 @@
         <div class="links">
             <span @click="openDrawer" v-if="isAdminPage" class="menu-button material-symbols-outlined">menu</span>
             <router-link v-if="!isAdminPage" :to="pageTitle.link">{{pageTitle.text || "no title given"}}</router-link>
-            <router-link class="hightlight--text" v-if="isAdminPage" to="/vote">יציאת מעמוד המנהלים</router-link>
+            <router-link class="hightlight--text navbar__exit-btn" v-if="isAdminPage" to="/vote">יציאת מעמוד המנהלים</router-link>
             <router-link class="hightlight--text" v-else-if="isAdmin" to="/admin">לעמוד המנהלים</router-link>
         </div>
-        <h2 v-if="isAdminPage">עמוד מנהלים</h2>
+        <h2 v-if="isAdminPage" class="navbar__admin-text">עמוד מנהלים</h2>
         <div class="profile">
             <p>{{username}}</p>
             <img :src="image" alt="">
@@ -74,8 +74,10 @@ export default {
         align-items: center;
         user-select: none;
         
-        @media only screen and (max-width: 470px){
-            max-width: 9.75rem;
+        p{
+            @media only screen and (max-width: 310px){
+                display: none;
+            }
         }
 
         &:hover .logout{
@@ -122,6 +124,18 @@ export default {
     .menu-button{
         margin-right: 1rem;
         cursor: pointer;
+    }
+
+    &__exit-btn{
+        @media screen and (max-width:660px){
+            display: none !important;
+        }
+    }
+
+    &__admin-text{
+        @media screen and (max-width:400px){
+            display: none;
+        }
     }
 }
 </style>

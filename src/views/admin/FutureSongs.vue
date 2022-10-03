@@ -13,7 +13,8 @@
                 <span class="owner-name">{{s.ownerName}}</span>
                 <span class="material-icons play" v-if="isPlaying && s._id == playingSoundId" @click="playsound(s)">pause</span>
                 <span class="material-icons play" v-else @click="playsound(s)">volume_up</span>
-                <span><button class="btn btn--red" @click="deleteSong(s)">מחיקה</button></span>
+                <span class="delete-btn--web"><button class="btn btn--red " @click="deleteSong(s)">מחיקה</button></span>
+                <span class="delete-btn--mobile"><button class="btn btn--red" @click="deleteSong(s)"><span class="material-symbols-outlined">delete</span></button></span>
             </div>
         </div>
         <h2 v-else>לא אושרו שירים</h2>
@@ -97,6 +98,29 @@ export default {
         span{
             font-size: 2rem;
             color: #000;
+        }
+    }
+
+    .delete-btn--web{
+        @media screen and (max-width:480px){
+            display: none !important;
+        }
+    }
+
+    .delete-btn--mobile{
+        display: none !important;
+
+        @media screen and (max-width:480px){
+            display: block !important;
+
+            .btn{
+                width: 50%;
+
+                span{
+                    position: relative;
+                    right:0.8rem;
+                }
+            }
         }
     }
 }
