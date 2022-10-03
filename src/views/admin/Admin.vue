@@ -18,12 +18,6 @@ export default {
   components:{
     SubmissionCard,
   },
-  beforeCreate(){
-    this.$store.commit('setTitle',{
-      text:'רשימת חסימות',
-      link:'/bans'
-    })
-  },
   methods:{
     accept(data,s){
       this.$emit('toogleLoad')

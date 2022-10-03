@@ -29,12 +29,6 @@ export default {
       search:null,
     }
   },
-  beforeCreate(){
-    this.$store.commit('setTitle',{
-      text:'רשימת בקשות',
-      link:'/admin'
-    })
-  },
   methods:{
     async revokeBan(ban){
       const {isConfirmed} = await Swal.fire({
