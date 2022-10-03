@@ -3,7 +3,7 @@
       <div class="search-box">
         <Input text="חיפוש" @newValue="search = $event"/>
       </div>
-      <div class="ban-card" v-for="ban in bans.reverse()" :key="ban._id">
+      <div class="ban-card" v-for="ban in [...bans].reverse()" :key="ban._id">
           <ul>
               <li>נחסם על ידי: <span>{{ban.admin}}</span></li>
               <li>שם התלמיד: <span>{{ban.userName}}</span></li>
@@ -48,7 +48,7 @@ export default {
       return dayjs.unix(date).format('D/M/YYYY')
     },
     isExpired(date){
-      return dayjs.unix(date).isAfter(dayjs())
+      return dayjs.unix(date).isBefore(dayjs())
     }
   },
   computed:{
