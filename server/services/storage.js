@@ -30,7 +30,16 @@ module.exports = class Storage{
 
     static getDate(){
         Storage.createDataFolder()
+
+        if(!fs.existsSync(`${this.folder}/lastUpdate.txt`)){
+            Storage.updateDate()
+        }
+
         return fs.readFileSync(`${this.folder}/lastUpdate.txt`).toString()
+    }
+
+    static doesSongExist(){
+        return fs.existsSync(`${this.folder}/song.mp3`)
     }
 
 }

@@ -4,8 +4,14 @@ const config = require('../config')
 
 //storage routes
 router.get('/',(req,res) => {
-    console.log('Song Requested')
-    res.send(Storage.getSong())
+    if(Storage.doesSongExist()){
+        console.log('Song Requested')
+        res.send(Storage.getSong())
+    }
+    else{
+        res.status(404)
+        res.send('Song not found')
+    }
 })
 
 router.get('/date',(req,res) => {
