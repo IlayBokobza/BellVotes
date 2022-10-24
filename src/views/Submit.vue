@@ -37,25 +37,25 @@ export default {
   },
   methods:{
     async send(){
-      const reg = /https:\/\/((www|m).)?youtube.com\/watch\?/
+      const reg = /(?:https?:\/\/)?(?:(www|music)\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)&?/
       const bReg = /https:\/\/youtu\.be\//
       this.youtubeLink = this.youtubeLink.trim()
 
       //tests if is a youtube link
       let videoId;
 
-      if(reg.test(this.youtubeLink)){
+      if(bReg.test(this.youtubeLink)){
+        videoId = this.youtubeLink.replace(bReg,'')
+      }
+      else if(reg.test(this.youtubeLink)){
         //removes the domain from the link
-        const query = this.youtubeLink.replace(reg,'')
+        const query = this.youtubeLink.split('?')[1]
         const queryData = qs.parse(query)
         videoId = queryData.v
       }
-      else if(bReg.test(this.youtubeLink)){
-        videoId = this.youtubeLink.replace(bReg,'')
-      }
       else{
         Swal.fire({
-          title:'קישור לא תקין',
+          title:'קישור לא תקין! אנא השתמשו בקישור מ-youtube.com',
           icon:'error',
           confirmButtonText:"אוקי",
         })
@@ -63,7 +63,7 @@ export default {
       }
 
       this.$emit('toogleLoad')
-
+      
       try{
         await axios.post('/api/submit/',{videoId})
         Swal.fire({
@@ -74,8 +74,9 @@ export default {
         })
       }
       catch(e){
+        console.log(e.response)
         Swal.fire({
-          title:e.response.data,
+          title:e.response,
           icon:'error',
           confirmButtonText:"אוקי",
         })
