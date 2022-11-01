@@ -1,5 +1,6 @@
 const cron = require('node-cron')
 const chalk = require('chalk')
+const config = require('../config')
 const Storage = require('./storage')
 const {FutureSongs,CurrentSongs} = require('../models/accpetedSubmissionModel')
 const Submission = require('../models/submissionsModel')
@@ -30,15 +31,23 @@ module.exports = class Cycle{
     static async chooseBell(){
         try{
             Cycle.logProgress('Replacing submission')
-            //gets and delete all future subs
-            const fsubs = await FutureSongs.find({})
-            await FutureSongs.deleteMany({})
-            await Submission.deleteMany({})
             
-            //gets all current subs and replaces with new ones
-            const subs = await CurrentSongs.find({})
-            await CurrentSongs.deleteMany({})
-            await CurrentSongs.insertMany(fsubs.map(i => ({
+            //get the future songs and the submissions
+            const fSongs = await FutureSongs.find({})
+            const subs = await Submission.find({})
+            await FutureSongs.deleteMany({})
+            
+            if(!config.repeatingSongs){
+                await Submission.deleteMany({})
+                await CurrentSongs.deleteMany({})
+            }
+            else{
+                await CurrentSongs.updateMany({},{
+                    votes:0,
+                })
+            }
+
+            await CurrentSongs.insertMany(fSongs.map(i => ({
                 title:i.title,
                 link:i.link,
                 owner:i.owner,
