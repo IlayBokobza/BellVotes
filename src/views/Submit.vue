@@ -74,9 +74,8 @@ export default {
         })
       }
       catch(e){
-        console.log(e.response)
         Swal.fire({
-          title:e.response,
+          title:e.response?.data,
           icon:'error',
           confirmButtonText:"אוקי",
         })
