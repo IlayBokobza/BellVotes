@@ -36,6 +36,11 @@ module.exports = class Cycle{
             const fSongs = await FutureSongs.find({})
             const subs = await Submission.find({})
             await FutureSongs.deleteMany({})
+
+            Cycle.logProgress('Choosing new bell')
+            const topSub = Cycle.findTopSub(fSongs)
+            Storage.updateSong(topSub.songData)
+            Storage.updateDate()
             
             if(!config.repeatingSongs){
                 await Submission.deleteMany({})
@@ -63,10 +68,6 @@ module.exports = class Cycle{
             })
     
             
-            Cycle.logProgress('Choosing new bell')
-            const topSub = Cycle.findTopSub(subs)
-            Storage.updateSong(topSub.songData)
-            Storage.updateDate()
             Cycle.logProgress('Done!')
         }
         catch(e){
