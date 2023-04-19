@@ -16,7 +16,7 @@ module.exports = class Cycle{
         cron.schedule('0 0 * * sun',Cycle.chooseBell)
     }
 
-    static findTopSub(subs=[]){
+    static findTopSong(subs=[]){
         let topSub = {votes:-1}
 
         subs.forEach(s => {
@@ -34,13 +34,8 @@ module.exports = class Cycle{
             
             //get the future songs and the submissions
             const fSongs = await FutureSongs.find({})
-            const subs = await Submission.find({})
+            const songs = await CurrentSongs.find({})
             await FutureSongs.deleteMany({})
-
-            Cycle.logProgress('Choosing new bell')
-            const topSub = Cycle.findTopSub(fSongs)
-            Storage.updateSong(topSub.songData)
-            Storage.updateDate()
             
             if(!config.repeatingSongs){
                 await Submission.deleteMany({})
@@ -68,6 +63,10 @@ module.exports = class Cycle{
             })
     
             
+            Cycle.logProgress('Choosing new bell')
+            const topSong = Cycle.findTopSong(songs)
+            Storage.updateSong(topSong.songData)
+            Storage.updateDate()
             Cycle.logProgress('Done!')
         }
         catch(e){
