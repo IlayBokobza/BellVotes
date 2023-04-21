@@ -9,7 +9,7 @@
         <h2 v-if="isAdminPage" class="navbar__admin-text">עמוד מנהלים</h2>
         <div class="profile">
             <p>{{username}}</p>
-            <img :src="image" alt="">
+            <img @error="fallBackImage" id="navbar-image" :src="image" alt="">
             <div @click="logout" class="logout">התנתק</div>
         </div>
     </div>
@@ -25,6 +25,9 @@ export default {
         },
         openDrawer(){
             this.$store.commit('showDrawer')
+        },
+        fallBackImage(){
+            document.getElementById('navbar-image').setAttribute('src',require("@/assets/avater.png"))
         }
     },
     computed:{
