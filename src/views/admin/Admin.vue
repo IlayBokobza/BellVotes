@@ -1,7 +1,7 @@
 <template>
   <div class="admin">
     <div v-if="subs.length > 0" class="subs-container">
-      <div class="card-container" v-for="(sub,i) in subs" :key="i">
+      <div class="card-container" v-for="sub in subs" :key="sub._id">
         <SubmissionCard @accept="accept($event,sub)" @deny="deny(sub)" @ban="ban(sub)" :sub="sub" />
       </div>
     </div>
