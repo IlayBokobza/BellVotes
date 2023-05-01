@@ -6,7 +6,6 @@ const cookieParser = require("cookie-parser");
 const Cycle = require('./services/cycle')
 const config = require('./config')
 
-require('dotenv').config()
 if(!config.maxSongs) config.maxSongs = 10;
 
 const app = express()

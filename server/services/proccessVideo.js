@@ -94,7 +94,7 @@ module.exports = class ProccessVideo {
                     console.log(chalk.bgBlue(`Finished downloading took ${(Date.now()-startingTimestamp)/1000} seconds`))
 
                     //calling ffmpeg
-                    exec(`${config.external.ffmpegPath} -ss 00:${this.startingTime} -i ${uncutFilepath} -ss 00:00:20 -t 00:00:20 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error) => {
+                    exec(`${config.external.ffmpegPath} -ss 00:${this.startingTime} -i ${uncutFilepath} -ss 00:00:${config.songLength} -t 00:00:${config.songLength} -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 ${filepath}`, (error) => {
                         if (error) {
                             console.log(`error: ${error.message}`);
                             reject(error.message)

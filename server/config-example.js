@@ -3,6 +3,7 @@
 module.exports = {
 
     maxSongs:60, //The max songs allowed to be on te list
+    songLength:20, // Song length in seconds
     repeatingSongs:true, //when a new cycle starts the songs from the previous one will remain
     port:3000, //the server port
     emailDomain:null, //email filter, only accepts emails from that domain, leave null to accept all email domains
